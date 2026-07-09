@@ -1,57 +1,1145 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EYLOFORA</title>
-    <meta name="description" content="EYLOFORA official site.">
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #f7f1e8;
-        --fg: #231f1c;
-        --muted: #6e6258;
-        --line: #d9cbbc;
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EYLOFORA 品牌官网首页方案</title>
+  <style>
+    :root {
+      --bg: oklch(97% 0.012 85);
+      --surface: oklch(99% 0.006 85);
+      --surface-strong: oklch(94% 0.012 85);
+      --ink: oklch(28% 0.02 50);
+      --muted: oklch(56% 0.015 55);
+      --line: oklch(86% 0.01 80);
+      --accent: oklch(55% 0.045 145);
+      --accent-soft: oklch(92% 0.02 145);
+      --shadow: 0 18px 40px rgba(44, 37, 28, 0.08);
+      --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --font-body: "Avenir Next", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --max: 1440px;
+      --pad: clamp(20px, 4vw, 48px);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,0.55), rgba(255,255,255,0.35)),
+        repeating-linear-gradient(
+          0deg,
+          rgba(78, 66, 43, 0.015) 0,
+          rgba(78, 66, 43, 0.015) 1px,
+          transparent 1px,
+          transparent 30px
+        ),
+        var(--bg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    button, input, textarea { font: inherit; }
+    a { color: inherit; text-decoration-color: color-mix(in oklab, var(--ink) 40%, transparent); text-underline-offset: 0.18em; }
+    a:hover { text-decoration-color: currentColor; }
+
+    .page-shell {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad) 64px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin: 0 calc(var(--pad) * -1);
+      padding: 16px var(--pad);
+      background: color-mix(in oklab, var(--surface) 90%, white 10%);
+      border-bottom: 1px solid rgba(124, 109, 84, 0.14);
+      backdrop-filter: blur(18px);
+    }
+
+    .site-header-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      font-family: var(--font-display);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .brand-mark strong {
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .brand-mark span {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      gap: clamp(18px, 2vw, 28px);
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .site-nav a { text-decoration: none; }
+    .site-nav a:hover { color: var(--muted); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .text-button,
+    .menu-button,
+    .primary-link {
+      border: 1px solid rgba(124, 109, 84, 0.18);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .text-button,
+    .menu-button {
+      padding: 10px 14px;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+
+    .menu-button { display: none; }
+
+    .hero {
+      padding: clamp(36px, 7vw, 88px) 0 56px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+      gap: clamp(28px, 4vw, 60px);
+      align-items: end;
+      border-bottom: 1px solid rgba(124, 109, 84, 0.18);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1,
+    .section-title,
+    .spotlight-title,
+    .product-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(48px, 7.2vw, 72px);
+      max-width: 11ch;
+      text-wrap: pretty;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 63ch;
+      font-size: 17px;
+      color: color-mix(in oklab, var(--ink) 88%, var(--muted));
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(124, 109, 84, 0.16);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hero-meta strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-weight: 560;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .primary-link,
+    .secondary-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .primary-link {
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .secondary-link {
+      border-bottom: 1px solid rgba(124, 109, 84, 0.22);
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .hero-figure {
+      display: grid;
+      gap: 14px;
+    }
+
+    .figure-frame {
+      padding: 18px;
+      background: color-mix(in oklab, var(--surface) 92%, white 8%);
+      border: 1px solid rgba(124, 109, 84, 0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .figure-board {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      min-height: 540px;
+    }
+
+    .board-panel {
+      border: 1px solid rgba(124, 109, 84, 0.14);
+      background: color-mix(in oklab, white 92%, var(--bg) 8%);
+      padding: 18px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+    }
+
+    .board-panel strong {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .board-panel span {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .board-panel p {
+      margin: 0;
+      font-size: 14px;
+      color: color-mix(in oklab, var(--ink) 84%, var(--muted));
+    }
+
+    .board-panel.wide {
+      grid-column: 1 / -1;
+      min-height: 170px;
+    }
+
+    .figure-caption {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .section {
+      padding: clamp(46px, 7vw, 92px) 0;
+      border-bottom: 1px solid rgba(124, 109, 84, 0.14);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(220px, 320px) 1fr;
+      gap: clamp(22px, 4vw, 56px);
+      margin-bottom: 28px;
+      align-items: start;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 6px 0 0;
+      font-size: clamp(32px, 4vw, 44px);
+      max-width: 12ch;
+    }
+
+    .section-intro {
+      margin: 0;
+      max-width: 62ch;
+      font-size: 16px;
+      color: color-mix(in oklab, var(--ink) 86%, var(--muted));
+    }
+
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+      gap: clamp(24px, 4vw, 56px);
+      align-items: start;
+    }
+
+    .manifesto {
+      display: grid;
+      gap: 22px;
+    }
+
+    .manifesto-block {
+      padding: 0 0 22px;
+      border-bottom: 1px solid rgba(124, 109, 84, 0.14);
+    }
+
+    .manifesto-block:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .manifesto-block h3,
+    .policy-table caption,
+    .product-meta-label,
+    .spotlight-meta strong,
+    .product-copy h2 {
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 560;
+    }
+
+    .manifesto-block p,
+    .product-copy p,
+    .product-notes p {
+      margin: 0;
+      max-width: 65ch;
+    }
+
+    .manifesto-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .aside-note {
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid rgba(124, 109, 84, 0.16);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 18px;
+    }
+
+    .aside-note p {
+      margin: 0;
+      color: color-mix(in oklab, var(--ink) 82%, var(--muted));
+    }
+
+    .quote-mark {
+      font-family: var(--font-display);
+      font-size: 48px;
+      line-height: 1;
+      color: var(--accent);
+    }
+
+    .catalog-layout {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.88fr) minmax(0, 1.12fr);
+      gap: clamp(20px, 3vw, 42px);
+      align-items: start;
+    }
+
+    .product-list {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid rgba(124, 109, 84, 0.18);
+    }
+
+    .product-option {
+      width: 100%;
+      padding: 18px 0;
+      border: 0;
+      border-bottom: 1px solid rgba(124, 109, 84, 0.14);
+      background: transparent;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 12px;
+      align-items: start;
+      text-align: left;
+    }
+
+    .product-option:hover .product-option-title,
+    .product-option[aria-pressed="true"] .product-option-title {
+      color: var(--ink);
+    }
+
+    .product-option[aria-pressed="true"] .product-option-index {
+      color: var(--accent);
+    }
+
+    .product-option-index {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .product-option-title {
+      margin: 0 0 4px;
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: color-mix(in oklab, var(--ink) 86%, var(--muted));
+    }
+
+    .product-option-subtitle,
+    .spotlight-meta span,
+    .spotlight-note,
+    .policy-table td,
+    .footer-note,
+    .footer-links a,
+    .product-side-note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .product-option-flag {
+      align-self: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .spotlight {
+      min-height: 100%;
+      background: var(--surface);
+      border: 1px solid rgba(124, 109, 84, 0.16);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 22px;
+      padding: clamp(20px, 3vw, 28px);
+    }
+
+    .spotlight-header {
+      display: grid;
+      gap: 10px;
+    }
+
+    .spotlight-kicker {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .spotlight-title {
+      margin: 0;
+      font-size: clamp(32px, 4vw, 48px);
+      max-width: 12ch;
+    }
+
+    .spotlight-body {
+      margin: 0;
+      max-width: 54ch;
+      font-size: 16px;
+    }
+
+    .spotlight-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(124, 109, 84, 0.12);
+    }
+
+    .spotlight-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .spotlight-note {
+      padding-top: 10px;
+      border-top: 1px solid rgba(124, 109, 84, 0.12);
+    }
+
+    .catalog-proof {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(124, 109, 84, 0.14);
+      display: grid;
+      gap: 12px;
+    }
+
+    .catalog-proof img {
+      border: 1px solid rgba(124, 109, 84, 0.16);
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .policy-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: clamp(24px, 4vw, 46px);
+    }
+
+    .policy-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid rgba(124, 109, 84, 0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .policy-table caption {
+      text-align: left;
+      padding: 18px 20px 0;
+    }
+
+    .policy-table th,
+    .policy-table td {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(124, 109, 84, 0.12);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .policy-table th {
+      width: 28%;
+      font-size: 13px;
+      font-weight: 560;
+    }
+
+    .status-strip {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .status-card {
+      padding: 22px;
+      background: var(--surface);
+      border: 1px solid rgba(124, 109, 84, 0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .status-card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .status-card p {
+      margin: 0;
+      font-size: 14px;
+      color: color-mix(in oklab, var(--ink) 82%, var(--muted));
+    }
+
+    .site-footer {
+      padding: 36px 0 20px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) repeat(3, minmax(160px, 220px));
+      gap: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(124, 109, 84, 0.18);
+    }
+
+    .footer-top h3 {
+      margin: 0 0 10px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 560;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 8px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      border-top: 1px solid rgba(124, 109, 84, 0.14);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .section-head,
+      .editorial-grid,
+      .catalog-layout,
+      .policy-layout,
+      .footer-top {
+        grid-template-columns: 1fr;
       }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
-        background: linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
-        color: var(--fg);
+
+      .site-nav {
+        display: none;
       }
-      main {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 96px 24px;
+
+      .site-nav.is-open {
+        display: grid;
+        grid-column: 1 / -1;
+        justify-content: start;
+        gap: 14px;
+        padding-top: 8px;
       }
-      h1 {
-        margin: 0 0 12px;
-        font-size: clamp(42px, 8vw, 88px);
-        letter-spacing: 0.04em;
+
+      .site-header-inner {
+        grid-template-columns: auto 1fr auto;
       }
-      p {
-        margin: 0 0 16px;
-        line-height: 1.7;
-        color: var(--muted);
-        font-size: 18px;
-      }
-      .card {
-        margin-top: 40px;
-        padding: 24px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.66);
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>EYLOFORA</h1>
-      <p>Official brand site and public product materials archive.</p>
-      <div class="card">
-        <p>Site initialization complete.</p>
-        <p>Product pages, copyright statements, and publication records will be added here.</p>
+
+      .menu-button { display: inline-flex; }
+      .hero-meta,
+      .spotlight-meta { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .page-shell { padding-bottom: 32px; }
+      .site-header { padding-top: 14px; padding-bottom: 14px; }
+      .hero { padding-top: 28px; }
+      .hero-links,
+      .spotlight-actions,
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .product-option { grid-template-columns: 44px 1fr; }
+      .product-option-flag { display: none; }
+      .brand-mark strong { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" data-od-id="site-header">
+    <div class="site-header-inner">
+      <a class="brand-mark" href="#hero" data-od-id="brand-mark">
+        <strong>EYLOFORA</strong>
+        <span>Brand Catalogue</span>
+      </a>
+      <nav class="site-nav" id="site-nav" data-od-id="site-nav">
+        <a href="#hero" data-od-id="nav-home">首页</a>
+        <a href="#brand" data-od-id="nav-brand">品牌说明</a>
+        <a href="#catalogue" data-od-id="nav-catalogue">商品目录</a>
+        <a href="#rights" data-od-id="nav-rights">素材与权属</a>
+        <a href="product-template.html" data-od-id="nav-product-template">产品页模板</a>
+      </nav>
+      <div class="header-actions">
+        <a class="text-button" href="#rights" data-od-id="header-proof-link">公开说明</a>
+        <button class="menu-button" type="button" id="menu-button" aria-expanded="false" aria-controls="site-nav" data-od-id="menu-button">目录</button>
       </div>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <main data-od-id="homepage-main">
+      <section class="hero" id="hero" data-od-id="hero-section">
+        <div>
+          <div class="eyebrow">在售品牌首页方案</div>
+          <h1 data-od-id="hero-title">以正式的公开展示，建立品牌与素材的长期秩序。</h1>
+          <p data-od-id="hero-body">
+            EYLOFORA 不是短期营销页，而是一套可以持续更新的品牌官网首页框架。
+            它首先呈现品牌气质、在售目录与素材权属，其次才是单品导流。页面因此更接近一本品牌画册，
+            而不是一个带口号的模板化落地页。
+          </p>
+          <div class="hero-meta" data-od-id="hero-meta">
+            <div>
+              <strong>站点定位</strong>
+              品牌官网首页 + 后续统一产品页模板
+            </div>
+            <div>
+              <strong>目标用户</strong>
+              面向普通消费者，同时承担公开展示与权属说明
+            </div>
+            <div>
+              <strong>内容语气</strong>
+              克制、真实、成熟，保留编辑式留白与细线层次
+            </div>
+          </div>
+          <div class="hero-links">
+            <a class="primary-link" href="#catalogue" data-od-id="hero-primary-link">查看在售目录节奏</a>
+            <a class="secondary-link" href="product-template.html" data-od-id="hero-secondary-link">进入产品页模板</a>
+          </div>
+        </div>
+        <figure class="hero-figure" data-od-id="hero-figure">
+          <div class="figure-frame" data-od-id="hero-proof-board">
+            <div class="figure-board">
+              <article class="board-panel" data-od-id="board-panel-category">
+                <span>Category</span>
+                <strong>摆件<br />花器<br />手作软装</strong>
+                <p>以家居陈设类商品为主，强调静物、材质和摆放秩序。</p>
+              </article>
+              <article class="board-panel" data-od-id="board-panel-voice">
+                <span>Voice</span>
+                <strong>少口号<br />多说明</strong>
+                <p>文案优先写材质、用途、公开状态和更新时间，不做夸张营销宣言。</p>
+              </article>
+              <article class="board-panel wide" data-od-id="board-panel-structure">
+                <span>Homepage Logic</span>
+                <strong>品牌声明 → 目录节选 → 权属说明</strong>
+                <p>首屏先建立正式感；中段展示代表性在售条目；底部明确素材公开边界与详情页模板关系。</p>
+              </article>
+            </div>
+          </div>
+          <figcaption class="figure-caption" data-od-id="hero-figure-caption">
+            <span>首屏右侧改用品牌板式卡，而不是直接把首页做成电商截图。</span>
+            <span>公开目录事实切片保留在下方商品区。</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="section" id="brand" data-od-id="brand-section">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Brand Position</div>
+            <h2 class="section-title" data-od-id="brand-title">像品牌手册，而不是电商组件集合。</h2>
+          </div>
+          <p class="section-intro" data-od-id="brand-intro">
+            这一段不负责“推销”，而负责让访问者迅速理解 EYLOFORA 的审美边界、
+            商品范围和公开原则。首页真正需要建立的是可信度：内容被持续维护、素材来源清晰、文字不过度承诺。
+          </p>
+        </div>
+        <div class="editorial-grid">
+          <div class="manifesto">
+            <article class="manifesto-block" data-od-id="manifesto-block-identity">
+              <h3>品牌身份</h3>
+              <p>
+                EYLOFORA 的公开呈现以家居摆件、花器、手作装饰和轻量生活用品为主。
+                页面不追求“爆款感”，而追求稳定、耐看和正式发布语境下的可信表达。
+              </p>
+            </article>
+            <article class="manifesto-block" data-od-id="manifesto-block-structure">
+              <h3>首页结构</h3>
+              <p>
+                顶部导航保持稀疏；首屏只放一个主声明与一张目录证据图；品牌介绍区改用编排关系来讲清立场；
+                商品展示区呈现选品谱系；素材与权属区承担法务与归档语义。
+              </p>
+            </article>
+            <article class="manifesto-block" data-od-id="manifesto-block-copy">
+              <h3>文案原则</h3>
+              <ul class="manifesto-list">
+                <li>不用空洞口号，不写夸张承诺，不造营销数据。</li>
+                <li>商品说明以材质、用途、视觉气质和公开时间为中心。</li>
+                <li>每个区块都承担一种明确职责，不重复同一套卡片语言。</li>
+              </ul>
+            </article>
+          </div>
+          <aside class="aside-note" data-od-id="brand-aside-note">
+            <div class="quote-mark">“</div>
+            <p>
+              页面参考借用了 Magnum Photos 的秩序感：衬线标题、细线分隔、目录式导航和正式的图文关系，
+              但会转译到消费品牌语境里，避免媒体站点的资讯密度。
+            </p>
+            <p>
+              视觉基底选暖骨色与炭棕黑，不做冷感科技灰，也不做高饱和品牌底色。
+              低饱和植物绿只保留给状态提示与少量细节点。
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="catalogue" data-od-id="catalogue-section">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Selected Catalogue</div>
+            <h2 class="section-title" data-od-id="catalogue-title">商品展示区做成选品目录，不做促销宫格。</h2>
+          </div>
+          <p class="section-intro" data-od-id="catalogue-intro">
+            首页陈列不需要一次性塞满全部产品。更合理的方式是呈现一批具有代表性的在售条目，
+            让用户理解 EYLOFORA 的商品跨度与视觉统一性，再引导进入统一模板的产品详情页。
+          </p>
+        </div>
+        <div class="catalog-layout">
+          <div class="product-list" role="listbox" aria-label="EYLOFORA 商品节选" data-od-id="product-list">
+            <button class="product-option" type="button" aria-pressed="true" data-product="mahjong-clear" data-od-id="product-option-mahjong-clear">
+              <span class="product-option-index">01</span>
+              <span>
+                <span class="product-option-title">20 英寸亚克力麻将牌架</span>
+                <span class="product-option-subtitle">透明版本 · 收纳与桌面娱乐用品</span>
+              </span>
+              <span class="product-option-flag">在售</span>
+            </button>
+            <button class="product-option" type="button" aria-pressed="false" data-product="cat-statue" data-od-id="product-option-cat-statue">
+              <span class="product-option-index">02</span>
+              <span>
+                <span class="product-option-title">黑色猫咪树脂摆件</span>
+                <span class="product-option-subtitle">现代简约摆件 · 家居装饰</span>
+              </span>
+              <span class="product-option-flag">在售</span>
+            </button>
+            <button class="product-option" type="button" aria-pressed="false" data-product="book-vase" data-od-id="product-option-book-vase">
+              <span class="product-option-index">03</span>
+              <span>
+                <span class="product-option-title">陶瓷书本花器</span>
+                <span class="product-option-subtitle">堆叠书造型 · 小型花艺容器</span>
+              </span>
+              <span class="product-option-flag">在售</span>
+            </button>
+            <button class="product-option" type="button" aria-pressed="false" data-product="bunny-set" data-od-id="product-option-bunny-set">
+              <span class="product-option-index">04</span>
+              <span>
+                <span class="product-option-title">三件兔子雕塑组合</span>
+                <span class="product-option-subtitle">树脂摆件 · 入口柜与书架陈列</span>
+              </span>
+              <span class="product-option-flag">在售</span>
+            </button>
+            <button class="product-option" type="button" aria-pressed="false" data-product="shell-box" data-od-id="product-option-shell-box">
+              <span class="product-option-index">05</span>
+              <span>
+                <span class="product-option-title">贝壳造型纸巾盒</span>
+                <span class="product-option-subtitle">陶瓷日用件 · 洗衣房与卫浴</span>
+              </span>
+              <span class="product-option-flag">在售</span>
+            </button>
+            <button class="product-option" type="button" aria-pressed="false" data-product="fairy-stakes" data-od-id="product-option-fairy-stakes">
+              <span class="product-option-index">06</span>
+              <span>
+                <span class="product-option-title">花园精灵装饰插牌</span>
+                <span class="product-option-subtitle">微型花园配件 · 户外盆栽装饰</span>
+              </span>
+              <span class="product-option-flag">在售</span>
+            </button>
+            <button class="product-option" type="button" aria-pressed="false" data-product="reindeer" data-od-id="product-option-reindeer">
+              <span class="product-option-index">07</span>
+              <span>
+                <span class="product-option-title">黑色驯鹿摆件二件组</span>
+                <span class="product-option-subtitle">金属质感装饰 · 节庆陈列</span>
+              </span>
+              <span class="product-option-flag">在售</span>
+            </button>
+            <button class="product-option" type="button" aria-pressed="false" data-product="coasters" data-od-id="product-option-coasters">
+              <span class="product-option-index">08</span>
+              <span>
+                <span class="product-option-title">钩针花朵杯垫三件套</span>
+                <span class="product-option-subtitle">手作软装 · 桌面配件</span>
+              </span>
+              <span class="product-option-flag">在售</span>
+            </button>
+          </div>
+
+          <article class="spotlight" data-od-id="product-spotlight">
+            <div class="spotlight-header">
+              <div class="spotlight-kicker" id="spotlight-category">桌面娱乐 / 收纳</div>
+              <h3 class="spotlight-title" id="spotlight-title" data-od-id="spotlight-title">20 英寸亚克力麻将牌架</h3>
+              <p class="spotlight-body" id="spotlight-description" data-od-id="spotlight-description">
+                这类产品适合用规则式陈列图、细节局部图和包装说明图来建立正式感。首页里不直接拼成商品卡，
+                而是用单条目录语气呈现：产品名、用途、公开状态、后续进入详情页的入口。
+              </p>
+            </div>
+            <div class="spotlight-meta" data-od-id="spotlight-meta">
+              <div>
+                <strong>材质 / 类型</strong>
+                <span id="spotlight-material">亚克力 / 桌面配件</span>
+              </div>
+              <div>
+                <strong>公开素材模式</strong>
+                <span id="spotlight-assets">watermarked / edited-images</span>
+              </div>
+              <div>
+                <strong>详情页建议结构</strong>
+                <span id="spotlight-layout">主图、细节图、用途说明、权属声明</span>
+              </div>
+            </div>
+            <div class="spotlight-actions">
+              <a class="primary-link" href="product-template.html" data-od-id="spotlight-template-link">查看统一产品页模板</a>
+              <a class="secondary-link" href="#rights" data-od-id="spotlight-rights-link">查看素材公开规则</a>
+            </div>
+            <div class="spotlight-note" id="spotlight-note" data-od-id="spotlight-note">
+              首页的商品展示区只承担“目录意识”，不抢产品详情页的工作。真正的多图、参数、文案和版权字段，将在产品页模板里展开。
+            </div>
+          </article>
+        </div>
+        <div class="catalog-proof" data-od-id="catalog-proof">
+          <div class="section-kicker">Public Evidence Slice</div>
+          <img src="assets/eylofora-amazon.png" alt="EYLOFORA Amazon 在售页截图，用于展示当前公开目录范围" data-od-id="catalog-proof-image" />
+          <div class="footer-note">
+            这里保留当前公开在售页截图，作为“已公开商品范围”的事实切片。正式上线后可替换为经裁切的目录拼贴或分商品实拍。
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="rights" data-od-id="rights-section">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Rights & Materials</div>
+            <h2 class="section-title" data-od-id="rights-title">素材 / 版权说明区必须说清边界，而不是藏在页脚。</h2>
+          </div>
+          <p class="section-intro" data-od-id="rights-intro">
+            对 EYLOFORA 来说，这一段不是附属说明，而是品牌官网的重要职责。访问者需要知道哪些内容是公开展示素材、
+            哪些来源于已上线商品、哪些图片会在后续详情页中以统一结构发布。
+          </p>
+        </div>
+        <div class="policy-layout">
+          <table class="policy-table" data-od-id="rights-policy-table">
+            <caption>公开边界与更新语义</caption>
+            <tbody>
+              <tr>
+                <th>公开站包含</th>
+                <td>商品列表、产品详情页、经过筛选的公开图片、标题与描述、权属说明、可见的更新时间。</td>
+              </tr>
+              <tr>
+                <th>公开站不包含</th>
+                <td>分层设计源文件、未发布备选稿、内部讨论记录、私有法律分析与未公开计划。</td>
+              </tr>
+              <tr>
+                <th>图片来源</th>
+                <td>优先使用 `edited-images/` 中的公开图；首页仅展示已确认可外放的材料，不混入原始工作图。</td>
+              </tr>
+              <tr>
+                <th>更新机制</th>
+                <td>首页展示“最近整理 / 最近发布”语义；产品页展示具体公开时间、素材模式与归属备注。</td>
+              </tr>
+              <tr>
+                <th>页面目的</th>
+                <td>既服务普通用户浏览，也服务品牌归档与权属记录，因此语气必须正式、可长期维护。</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="status-strip">
+            <article class="status-card" data-od-id="rights-status-card-assets">
+              <strong>素材目录建议</strong>
+              <p>
+                每个商品采用 `source-images / edited-images / copy / meta / rights` 的固定结构，
+                首页只读取已确认公开的条目摘要。
+              </p>
+            </article>
+            <article class="status-card" data-od-id="rights-status-card-template">
+              <strong>详情页模板统一</strong>
+              <p>
+                后续若干产品页不重新发明版式，而是复用一套详情页结构，
+                保证素材、文案与权属字段始终出现在稳定位置。
+              </p>
+            </article>
+            <article class="status-card" data-od-id="rights-status-card-voice">
+              <strong>公开语气控制</strong>
+              <p>
+                不使用“爆款”“极致”“颠覆”这类泛营销词。首页和详情页都以真实用途、材质和发布状态为主。
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
     </main>
-  </body>
+
+    <footer class="site-footer" data-od-id="site-footer">
+      <div class="footer-top">
+        <div>
+          <h3>EYLOFORA</h3>
+          <p class="footer-note">
+            一个以品牌感、公开素材秩序和长期可维护性为优先的品牌官网框架。
+            首页负责建立整体气质，产品页模板负责承接多图、多文案与权属字段。
+          </p>
+        </div>
+        <div>
+          <h3>首页入口</h3>
+          <div class="footer-links">
+            <a href="#hero" data-od-id="footer-link-home">首页首屏</a>
+            <a href="#brand" data-od-id="footer-link-brand">品牌说明</a>
+            <a href="#catalogue" data-od-id="footer-link-catalogue">商品目录</a>
+          </div>
+        </div>
+        <div>
+          <h3>公开规则</h3>
+          <div class="footer-links">
+            <a href="#rights" data-od-id="footer-link-rights">素材与权属</a>
+            <a href="product-template.html" data-od-id="footer-link-template">产品页模板</a>
+            <a href="brand-spec.md" data-od-id="footer-link-spec">品牌规格</a>
+          </div>
+        </div>
+        <div>
+          <h3>上线后可补</h3>
+          <div class="footer-links">
+            <span class="footer-note" data-od-id="footer-link-contact">品牌邮箱（上线后补入）</span>
+            <span class="footer-note" data-od-id="footer-link-press">媒体与授权入口（上线后补入）</span>
+            <span class="footer-note" data-od-id="footer-link-policy">隐私与使用条款（上线后补入）</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>当前阶段：品牌首页方案 + 统一产品页模板</span>
+        <span>目录事实来源：EYLOFORA Amazon 在售页截图</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const productData = {
+      "mahjong-clear": {
+        category: "桌面娱乐 / 收纳",
+        title: "20 英寸亚克力麻将牌架",
+        description: "这类产品适合用规则式陈列图、细节局部图和包装说明图来建立正式感。首页里不直接拼成商品卡，而是用单条目录语气呈现：产品名、用途、公开状态、后续进入详情页的入口。",
+        material: "亚克力 / 桌面配件",
+        assets: "watermarked / edited-images",
+        layout: "主图、细节图、用途说明、权属声明",
+        note: "同系列还包括粉色版本。首页只选一个代表条目，避免重复占位。"
+      },
+      "cat-statue": {
+        category: "家居摆件 / 树脂",
+        title: "黑色猫咪树脂摆件",
+        description: "摆件类商品更适合通过留白、单体轮廓和材质说明来呈现。首页可以用一张正视图和一行短说明建立形象，避免做成交错促销卡。",
+        material: "树脂 / 装饰雕塑",
+        assets: "edited-images / packshot-first",
+        layout: "主图、侧视细节、场景图、尺寸信息",
+        note: "这类 SKU 在产品页中适合增加“放置场景”与“材质质感”两类辅助图。"
+      },
+      "book-vase": {
+        category: "花器 / 家居陈设",
+        title: "陶瓷书本花器",
+        description: "花器类可以承担首页的温和色彩节点，但仍应保持低饱和。用产品本身的浅色和花材的轻微层次来替代页面背景上的装饰。",
+        material: "陶瓷 / 小型花器",
+        assets: "edited-images / lifestyle-supported",
+        layout: "静物主图、花艺使用图、近景细节、权属信息",
+        note: "该条目适合进入品牌介绍页和商品目录页的双重场景。"
+      },
+      "bunny-set": {
+        category: "组合摆件 / 树脂",
+        title: "三件兔子雕塑组合",
+        description: "组合摆件强调比例与组合关系，首页呈现时应保持横向节奏，不建议拆成三张独立小卡。通过编号和组合名能更接近画册目录。",
+        material: "树脂 / 多件组",
+        assets: "edited-images / group-composition",
+        layout: "组合总览、单体细节、尺寸表、发布备注",
+        note: "产品页可以加一个“组合包含”模块，避免用户误解数量。"
+      },
+      "shell-box": {
+        category: "日用陈设 / 陶瓷",
+        title: "贝壳造型纸巾盒",
+        description: "兼具日用与装饰属性的商品应在首页里用更冷静的用途说明处理，让页面保持正式，而不是把它写成生活方式口号。",
+        material: "陶瓷 / 纸巾盒",
+        assets: "edited-images / usage-first",
+        layout: "主图、开合细节、空间应用图、维护说明",
+        note: "这类商品适合在详情页加入“适用空间”字段。"
+      },
+      "fairy-stakes": {
+        category: "花园配件 / 装饰插牌",
+        title: "花园精灵装饰插牌",
+        description: "户外或园艺小物在首页中不需要放大渲染氛围，而是作为品牌商品跨度的补充出现：说明它属于哪一类用途、采用什么公开图方式即可。",
+        material: "装饰插牌 / 园艺配件",
+        assets: "edited-images / outdoor-context",
+        layout: "集合图、插牌细节、户外使用图、版权备注",
+        note: "首页只点到为止，避免把品牌页拉成多类别电商分类页。"
+      },
+      "reindeer": {
+        category: "节庆摆件 / 金属质感",
+        title: "黑色驯鹿摆件二件组",
+        description: "节庆向条目适合用更简练的目录表述，避免把首页带入季节性活动页语境。产品存在即可，但语气要稳定。",
+        material: "合金 / 摆件组合",
+        assets: "edited-images / pair-display",
+        layout: "组合图、单体轮廓、尺寸对照、公开时间",
+        note: "详情页可保留“季节陈列建议”，但首页不放强节庆标签。"
+      },
+      "coasters": {
+        category: "手作软装 / 钩针",
+        title: "钩针花朵杯垫三件套",
+        description: "手作类产品可以为品牌加入柔和层次，但页面表达仍然要克制。首页只强调材质与工艺，不扩大为情绪化叙事。",
+        material: "棉线 / 手作杯垫",
+        assets: "edited-images / craft-detail",
+        layout: "平铺主图、近景针法、套组说明、权属信息",
+        note: "这类产品在详情页中适合加入“纹理特写”缩略图。"
+      }
+    };
+
+    const menuButton = document.getElementById("menu-button");
+    const siteNav = document.getElementById("site-nav");
+    const optionButtons = Array.from(document.querySelectorAll(".product-option"));
+
+    menuButton.addEventListener("click", () => {
+      const next = menuButton.getAttribute("aria-expanded") !== "true";
+      menuButton.setAttribute("aria-expanded", String(next));
+      siteNav.classList.toggle("is-open", next);
+    });
+
+    function renderSpotlight(productId) {
+      const data = productData[productId];
+      if (!data) return;
+
+      document.getElementById("spotlight-category").textContent = data.category;
+      document.getElementById("spotlight-title").textContent = data.title;
+      document.getElementById("spotlight-description").textContent = data.description;
+      document.getElementById("spotlight-material").textContent = data.material;
+      document.getElementById("spotlight-assets").textContent = data.assets;
+      document.getElementById("spotlight-layout").textContent = data.layout;
+      document.getElementById("spotlight-note").textContent = data.note;
+
+      optionButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.product === productId));
+      });
+    }
+
+    optionButtons.forEach((button) => {
+      button.addEventListener("click", () => renderSpotlight(button.dataset.product));
+    });
+
+    renderSpotlight("mahjong-clear");
+  </script>
+</body>
 </html>
