@@ -3,1143 +3,2569 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EYLOFORA 品牌官网首页方案</title>
+  <title>EYLOFORA</title>
   <style>
     :root {
-      --bg: oklch(97% 0.012 85);
-      --surface: oklch(99% 0.006 85);
-      --surface-strong: oklch(94% 0.012 85);
-      --ink: oklch(28% 0.02 50);
-      --muted: oklch(56% 0.015 55);
-      --line: oklch(86% 0.01 80);
-      --accent: oklch(55% 0.045 145);
-      --accent-soft: oklch(92% 0.02 145);
-      --shadow: 0 18px 40px rgba(44, 37, 28, 0.08);
-      --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-      --font-body: "Avenir Next", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-      --max: 1440px;
-      --pad: clamp(20px, 4vw, 48px);
+      --bg: oklch(98.7% 0.002 95);
+      --surface: oklch(100% 0 0);
+      --line: oklch(86% 0.003 95);
+      --line-strong: oklch(22% 0.012 80);
+      --fg: oklch(19% 0.014 80);
+      --muted: oklch(55% 0.01 80);
+      --accent: oklch(41% 0.032 145);
+      --font-display: "Iowan Old Style", "Charter", Georgia, serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
       margin: 0;
-      color: var(--ink);
-      background:
-        linear-gradient(to bottom, rgba(255,255,255,0.55), rgba(255,255,255,0.35)),
-        repeating-linear-gradient(
-          0deg,
-          rgba(78, 66, 43, 0.015) 0,
-          rgba(78, 66, 43, 0.015) 1px,
-          transparent 1px,
-          transparent 30px
-        ),
-        var(--bg);
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--fg);
       font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.6;
-      text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    img { display: block; max-width: 100%; }
-    button, input, textarea { font: inherit; }
-    a { color: inherit; text-decoration-color: color-mix(in oklab, var(--ink) 40%, transparent); text-underline-offset: 0.18em; }
-    a:hover { text-decoration-color: currentColor; }
-
-    .page-shell {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 var(--pad) 64px;
+    body {
+      overflow-x: hidden;
     }
 
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      margin: 0 calc(var(--pad) * -1);
-      padding: 16px var(--pad);
-      background: color-mix(in oklab, var(--surface) 90%, white 10%);
-      border-bottom: 1px solid rgba(124, 109, 84, 0.14);
-      backdrop-filter: blur(18px);
-    }
-
-    .site-header-inner {
-      max-width: var(--max);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .brand-mark {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 10px;
-      font-family: var(--font-display);
-      letter-spacing: -0.02em;
+    a {
+      color: inherit;
       text-decoration: none;
     }
 
-    .brand-mark strong {
-      font-size: 28px;
-      font-weight: 600;
+    img {
+      display: block;
+      max-width: 100%;
     }
 
-    .brand-mark span {
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .site-nav {
-      display: flex;
-      justify-content: center;
-      gap: clamp(18px, 2vw, 28px);
-      font-size: 14px;
-      letter-spacing: 0.02em;
-    }
-
-    .site-nav a { text-decoration: none; }
-    .site-nav a:hover { color: var(--muted); }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .text-button,
-    .menu-button,
-    .primary-link {
-      border: 1px solid rgba(124, 109, 84, 0.18);
-      background: transparent;
-      color: var(--ink);
-      cursor: pointer;
-    }
-
-    .text-button,
-    .menu-button {
+    .skip-link {
+      position: absolute;
+      left: 20px;
+      top: 14px;
       padding: 10px 14px;
-      font-size: 13px;
-      letter-spacing: 0.02em;
+      background: var(--fg);
+      color: var(--surface);
+      transform: translateY(-160%);
+      transition: transform 160ms ease;
+      z-index: 20;
     }
 
-    .menu-button { display: none; }
+    .skip-link:focus-visible {
+      transform: translateY(0);
+    }
 
-    .hero {
-      padding: clamp(36px, 7vw, 88px) 0 56px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
-      gap: clamp(28px, 4vw, 60px);
-      align-items: end;
-      border-bottom: 1px solid rgba(124, 109, 84, 0.18);
+    .page-shell {
+      width: min(1660px, calc(100% - 40px));
+      margin: 0 auto;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 26px;
-      height: 1px;
-      background: var(--accent);
-    }
-
-    .hero h1,
-    .section-title,
-    .spotlight-title,
-    .product-title {
-      font-family: var(--font-display);
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      line-height: 1.08;
-    }
-
-    .hero h1 {
-      margin: 0 0 18px;
-      font-size: clamp(48px, 7.2vw, 72px);
-      max-width: 11ch;
-      text-wrap: pretty;
-    }
-
-    .hero p {
       margin: 0;
-      max-width: 63ch;
-      font-size: 17px;
-      color: color-mix(in oklab, var(--ink) 88%, var(--muted));
-    }
-
-    .hero-meta {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 26px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(124, 109, 84, 0.16);
-      font-size: 13px;
       color: var(--muted);
-    }
-
-    .hero-meta strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--ink);
-      font-weight: 560;
-    }
-
-    .hero-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .primary-link,
-    .secondary-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      font-size: 14px;
-      text-decoration: none;
-    }
-
-    .primary-link {
-      background: var(--surface);
-      box-shadow: var(--shadow);
-    }
-
-    .secondary-link {
-      border-bottom: 1px solid rgba(124, 109, 84, 0.22);
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    .hero-figure {
-      display: grid;
-      gap: 14px;
-    }
-
-    .figure-frame {
-      padding: 18px;
-      background: color-mix(in oklab, var(--surface) 92%, white 8%);
-      border: 1px solid rgba(124, 109, 84, 0.16);
-      box-shadow: var(--shadow);
-    }
-
-    .figure-board {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      min-height: 540px;
-    }
-
-    .board-panel {
-      border: 1px solid rgba(124, 109, 84, 0.14);
-      background: color-mix(in oklab, white 92%, var(--bg) 8%);
-      padding: 18px;
-      display: grid;
-      align-content: space-between;
-      gap: 18px;
-    }
-
-    .board-panel strong {
-      font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-
-    .board-panel span {
       font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .board-panel p {
+    .display {
       margin: 0;
-      font-size: 14px;
-      color: color-mix(in oklab, var(--ink) 84%, var(--muted));
-    }
-
-    .board-panel.wide {
-      grid-column: 1 / -1;
-      min-height: 170px;
-    }
-
-    .figure-caption {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.02em;
-    }
-
-    .section {
-      padding: clamp(46px, 7vw, 92px) 0;
-      border-bottom: 1px solid rgba(124, 109, 84, 0.14);
-    }
-
-    .section-head {
-      display: grid;
-      grid-template-columns: minmax(220px, 320px) 1fr;
-      gap: clamp(22px, 4vw, 56px);
-      margin-bottom: 28px;
-      align-items: start;
-    }
-
-    .section-kicker {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-family: var(--font-display);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      text-wrap: balance;
     }
 
     .section-title {
-      margin: 6px 0 0;
-      font-size: clamp(32px, 4vw, 44px);
-      max-width: 12ch;
-    }
-
-    .section-intro {
       margin: 0;
-      max-width: 62ch;
-      font-size: 16px;
-      color: color-mix(in oklab, var(--ink) 86%, var(--muted));
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      font-weight: 500;
+      text-wrap: balance;
     }
 
-    .editorial-grid {
+    .body-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+      max-width: 60ch;
+    }
+
+    .feature-label {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      font-weight: 400;
+      text-wrap: balance;
+    }
+
+    .feature-meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 28ch;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--fg);
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: color 180ms ease;
+    }
+
+    .text-link::after {
+      content: "↗";
+      font-size: 12px;
+    }
+
+    .text-link:hover,
+    .nav-link:hover,
+    .icon-link:hover {
+      color: var(--accent);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button-minimal {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--fg);
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+    }
+
+    .button-minimal:hover {
+      background: var(--fg);
+      color: var(--surface);
+    }
+
+    .button-minimal:active {
+      transform: translateY(1px);
+    }
+
+    .button-minimal.is-strong {
+      background: var(--fg);
+      color: var(--surface);
+      border-color: var(--fg);
+    }
+
+    .button-minimal.is-strong:hover {
+      background: color-mix(in oklch, var(--fg) 88%, var(--accent));
+      border-color: color-mix(in oklch, var(--fg) 88%, var(--accent));
+      color: var(--surface);
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(250, 249, 246, 0.96);
+    }
+
+    .site-header-inner {
+      position: relative;
+      min-height: 96px;
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
-      gap: clamp(24px, 4vw, 56px);
+      grid-template-columns: 116px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .brand-block {
+      width: 92px;
+      height: 92px;
+      background: #090909;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: relative;
+      justify-self: end;
+    }
+
+    .nav-row,
+    .nav-utility {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      min-width: 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 10px 0;
+      font-size: 15px;
+      white-space: nowrap;
+      transition: color 180ms ease;
+    }
+
+    .nav-link.is-current::after,
+    .nav-link[aria-current="page"]::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -22px;
+      height: 2px;
+      background: var(--line-strong);
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 54px;
+      background: var(--line);
+    }
+
+    .nav-utility {
+      gap: 24px;
+    }
+
+    .icon-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: color 180ms ease;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid var(--line-strong);
+      outline-offset: 4px;
+    }
+
+    .photo-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+      background: linear-gradient(180deg, #f7f5f1 0%, #ece7df 100%);
+    }
+
+    .photo-real {
+      border: 1px solid rgba(150, 139, 126, 0.14);
+      background: color-mix(in oklch, var(--surface) 82%, var(--bg));
+    }
+
+    .panel-image,
+    .series-cover-image,
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-tall {
+      min-height: 420px;
+    }
+
+    .gallery-hero {
+      display: grid;
+      grid-template-columns: 1.08fr 1fr 1fr 1fr;
+      min-height: calc(100vh - 97px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-rail,
+    .feature-column {
+      padding: 46px 34px 40px;
+      border-right: 1px solid var(--line);
+    }
+
+    .gallery-hero > :last-child {
+      border-right: 0;
+    }
+
+    .hero-rail {
+      display: grid;
+      align-content: start;
+      gap: 28px;
+    }
+
+    .hero-rail .display {
+      font-size: clamp(44px, 4.6vw, 78px);
+      max-width: 7.5ch;
+    }
+
+    .hero-links {
+      display: grid;
+      gap: 12px;
+      padding-top: 8px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .feature-column {
+      display: grid;
+      grid-template-rows: minmax(340px, 1fr) auto;
+      gap: 26px;
+      align-content: start;
+    }
+
+    .gallery-intro,
+    .gallery-categories,
+    .gallery-featured,
+    .gallery-trust,
+    .gallery-all-series,
+    .gallery-footer {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .gallery-intro-grid,
+    .gallery-section-head {
+      display: grid;
+      grid-template-columns: 0.95fr 2.05fr;
+    }
+
+    .intro-lead,
+    .intro-detail,
+    .gallery-section-head > div {
+      padding: 34px;
+      border-right: 1px solid var(--line);
+    }
+
+    .gallery-intro-grid > :last-child,
+    .gallery-section-head > :last-child {
+      border-right: 0;
+    }
+
+    .intro-detail {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 34px;
       align-items: start;
     }
 
-    .manifesto {
+    .statement-list {
       display: grid;
-      gap: 22px;
+      gap: 16px;
+      padding-top: 8px;
     }
 
-    .manifesto-block {
-      padding: 0 0 22px;
-      border-bottom: 1px solid rgba(124, 109, 84, 0.14);
+    .statement-list div {
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 15px;
+      line-height: 1.55;
     }
 
-    .manifesto-block:last-child {
-      padding-bottom: 0;
+    .gallery-section-head {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .gallery-categories-grid,
+    .gallery-featured-grid,
+    .gallery-trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .gallery-categories-grid > article,
+    .gallery-featured-grid > article,
+    .gallery-trust-grid > article {
+      padding: 30px 24px 32px;
+      border-right: 1px solid var(--line);
+    }
+
+    .gallery-categories-grid > :last-child,
+    .gallery-featured-grid > :last-child,
+    .gallery-trust-grid > :last-child {
+      border-right: 0;
+    }
+
+    .grid-card {
+      display: grid;
+      gap: 20px;
+      align-content: start;
+    }
+
+    .grid-card .photo-panel {
+      min-height: 280px;
+    }
+
+    .series-card-body,
+    .series-detail-copy {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .series-count {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .series-group-list {
+      display: grid;
+    }
+
+    .series-detail {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .series-group-list > :last-child {
       border-bottom: 0;
     }
 
-    .manifesto-block h3,
-    .policy-table caption,
-    .product-meta-label,
-    .spotlight-meta strong,
-    .product-copy h2 {
-      margin: 0 0 10px;
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 560;
-    }
-
-    .manifesto-block p,
-    .product-copy p,
-    .product-notes p {
-      margin: 0;
-      max-width: 65ch;
-    }
-
-    .manifesto-list {
-      margin: 0;
-      padding-left: 18px;
+    .series-detail-head {
       display: grid;
-      gap: 8px;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+      gap: 34px;
+      padding: 34px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .aside-note {
-      padding: 24px;
-      background: var(--surface);
-      border: 1px solid rgba(124, 109, 84, 0.16);
-      box-shadow: var(--shadow);
+    .series-detail-cover {
+      min-height: 360px;
+      background: color-mix(in oklch, var(--surface) 82%, var(--bg));
+      border: 1px solid rgba(150, 139, 126, 0.14);
+    }
+
+    .series-variants {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .variant-block {
+      padding: 28px 24px 30px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
       display: grid;
       gap: 18px;
     }
 
-    .aside-note p {
+    .series-variants > :nth-child(2n) {
+      border-right: 0;
+    }
+
+    .variant-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .variant-head h4,
+    .variant-head p {
       margin: 0;
-      color: color-mix(in oklab, var(--ink) 82%, var(--muted));
     }
 
-    .quote-mark {
-      font-family: var(--font-display);
-      font-size: 48px;
-      line-height: 1;
-      color: var(--accent);
-    }
-
-    .catalog-layout {
-      display: grid;
-      grid-template-columns: minmax(300px, 0.88fr) minmax(0, 1.12fr);
-      gap: clamp(20px, 3vw, 42px);
-      align-items: start;
-    }
-
-    .product-list {
-      display: grid;
-      gap: 0;
-      border-top: 1px solid rgba(124, 109, 84, 0.18);
-    }
-
-    .product-option {
-      width: 100%;
-      padding: 18px 0;
-      border: 0;
-      border-bottom: 1px solid rgba(124, 109, 84, 0.14);
-      background: transparent;
-      cursor: pointer;
-      display: grid;
-      grid-template-columns: 56px 1fr auto;
-      gap: 12px;
-      align-items: start;
-      text-align: left;
-    }
-
-    .product-option:hover .product-option-title,
-    .product-option[aria-pressed="true"] .product-option-title {
-      color: var(--ink);
-    }
-
-    .product-option[aria-pressed="true"] .product-option-index {
-      color: var(--accent);
-    }
-
-    .product-option-index {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-    }
-
-    .product-option-title {
-      margin: 0 0 4px;
-      font-family: var(--font-display);
-      font-size: 24px;
+    .variant-head h4 {
+      font-size: 22px;
+      line-height: 1.1;
+      font-weight: 500;
       letter-spacing: -0.02em;
-      line-height: 1.15;
-      color: color-mix(in oklab, var(--ink) 86%, var(--muted));
     }
 
-    .product-option-subtitle,
-    .spotlight-meta span,
-    .spotlight-note,
-    .policy-table td,
-    .footer-note,
-    .footer-links a,
-    .product-side-note {
+    .variant-head p {
       color: var(--muted);
       font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    .product-option-flag {
-      align-self: center;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .spotlight {
-      min-height: 100%;
-      background: var(--surface);
-      border: 1px solid rgba(124, 109, 84, 0.16);
-      box-shadow: var(--shadow);
+    .variant-gallery {
       display: grid;
-      gap: 22px;
-      padding: clamp(20px, 3vw, 28px);
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
     }
 
-    .spotlight-header {
+    .variant-thumb {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border: 1px solid rgba(150, 139, 126, 0.14);
+      background: color-mix(in oklch, var(--surface) 82%, var(--bg));
+    }
+
+    .gallery-footer-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr) auto;
+      gap: 28px;
+      align-items: center;
+      padding: 26px 34px 34px;
+    }
+
+    .footer-copy {
+      max-width: 44ch;
+    }
+
+    .footer-meta {
       display: grid;
       gap: 10px;
     }
 
-    .spotlight-kicker {
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .spotlight-title {
+    .footer-meta p {
       margin: 0;
-      font-size: clamp(32px, 4vw, 48px);
-      max-width: 12ch;
-    }
-
-    .spotlight-body {
-      margin: 0;
-      max-width: 54ch;
-      font-size: 16px;
-    }
-
-    .spotlight-meta {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(124, 109, 84, 0.12);
-    }
-
-    .spotlight-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .spotlight-note {
       padding-top: 10px;
-      border-top: 1px solid rgba(124, 109, 84, 0.12);
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
     }
 
-    .catalog-proof {
-      margin-top: 24px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(124, 109, 84, 0.14);
+    .footer-actions {
       display: grid;
+      justify-items: end;
       gap: 12px;
     }
 
-    .catalog-proof img {
-      border: 1px solid rgba(124, 109, 84, 0.16);
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      object-position: top center;
+    .footer-actions .button-row {
+      justify-content: flex-end;
     }
 
-    .policy-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-      gap: clamp(24px, 4vw, 46px);
-    }
-
-    .policy-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--surface);
-      border: 1px solid rgba(124, 109, 84, 0.16);
-      box-shadow: var(--shadow);
-    }
-
-    .policy-table caption {
-      text-align: left;
-      padding: 18px 20px 0;
-    }
-
-    .policy-table th,
-    .policy-table td {
-      padding: 16px 20px;
-      border-top: 1px solid rgba(124, 109, 84, 0.12);
-      vertical-align: top;
-      text-align: left;
-    }
-
-    .policy-table th {
-      width: 28%;
-      font-size: 13px;
-      font-weight: 560;
-    }
-
-    .status-strip {
-      display: grid;
-      gap: 16px;
-      align-content: start;
-    }
-
-    .status-card {
-      padding: 22px;
-      background: var(--surface);
-      border: 1px solid rgba(124, 109, 84, 0.16);
-      box-shadow: var(--shadow);
-    }
-
-    .status-card strong {
-      display: block;
-      margin-bottom: 10px;
-      font-family: var(--font-display);
-      font-size: 24px;
-      letter-spacing: -0.02em;
-    }
-
-    .status-card p {
-      margin: 0;
-      font-size: 14px;
-      color: color-mix(in oklab, var(--ink) 82%, var(--muted));
-    }
-
-    .site-footer {
-      padding: 36px 0 20px;
-      display: grid;
-      gap: 24px;
-    }
-
-    .footer-top {
-      display: grid;
-      grid-template-columns: minmax(280px, 1fr) repeat(3, minmax(160px, 220px));
-      gap: 24px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(124, 109, 84, 0.18);
-    }
-
-    .footer-top h3 {
-      margin: 0 0 10px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      font-weight: 560;
-    }
-
-    .footer-links {
-      display: grid;
-      gap: 8px;
-    }
-
-    .footer-links a {
-      text-decoration: none;
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding-top: 12px;
-      border-top: 1px solid rgba(124, 109, 84, 0.14);
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 1080px) {
-      .hero,
-      .section-head,
-      .editorial-grid,
-      .catalog-layout,
-      .policy-layout,
-      .footer-top {
+    @media (max-width: 1380px) {
+      .gallery-hero,
+      .gallery-intro-grid,
+      .gallery-section-head,
+      .series-detail-head {
         grid-template-columns: 1fr;
       }
 
-      .site-nav {
+      .hero-rail,
+      .feature-column,
+      .intro-lead,
+      .intro-detail,
+      .gallery-section-head > div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .gallery-hero > :last-child,
+      .gallery-intro-grid > :last-child,
+      .gallery-section-head > :last-child {
+        border-bottom: 0;
+      }
+    }
+
+    @media (max-width: 1160px) {
+      .gallery-hero,
+      .gallery-categories-grid,
+      .gallery-featured-grid,
+      .gallery-trust-grid,
+      .series-variants {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery-categories-grid > article:nth-child(2),
+      .gallery-featured-grid > article:nth-child(2),
+      .gallery-trust-grid > article:nth-child(2),
+      .gallery-categories-grid > article:nth-child(4),
+      .gallery-featured-grid > article:nth-child(4),
+      .gallery-trust-grid > article:nth-child(4) {
+        border-right: 0;
+      }
+
+      .intro-detail {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .site-header-inner {
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        min-height: 88px;
+      }
+
+      .nav-row,
+      .nav-utility {
         display: none;
       }
 
-      .site-nav.is-open {
+      .mobile-nav {
+        display: block;
+        width: auto;
+      }
+
+      .mobile-nav summary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid var(--line-strong);
+        background: transparent;
+        color: var(--fg);
+        cursor: pointer;
+        list-style: none;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .mobile-nav summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .mobile-nav[open] summary {
+        background: var(--fg);
+        color: var(--surface);
+      }
+
+      .mobile-nav-panel {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: calc(100% - 1px);
         display: grid;
-        grid-column: 1 / -1;
-        justify-content: start;
-        gap: 14px;
-        padding-top: 8px;
+        gap: 0;
+        padding: 10px 0 0;
+        background: rgba(250, 249, 246, 0.98);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .mobile-nav-panel a {
+        display: block;
+        padding: 14px 0;
+        border-top: 1px solid var(--line);
+        font-size: 15px;
+      }
+
+      .mobile-nav-panel a:last-child {
+        margin-bottom: 8px;
+      }
+
+      .gallery-footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-actions {
+        justify-items: start;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: min(100%, calc(100% - 20px));
       }
 
       .site-header-inner {
-        grid-template-columns: auto 1fr auto;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 0;
       }
 
-      .menu-button { display: inline-flex; }
-      .hero-meta,
-      .spotlight-meta { grid-template-columns: 1fr; }
+      .brand-block {
+        width: 78px;
+        height: 78px;
+      }
+
+      .gallery-hero,
+      .gallery-categories-grid,
+      .gallery-featured-grid,
+      .gallery-trust-grid,
+      .series-variants {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-categories-grid > article,
+      .gallery-featured-grid > article,
+      .gallery-trust-grid > article,
+      .variant-block {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .gallery-categories-grid > :last-child,
+      .gallery-featured-grid > :last-child,
+      .gallery-trust-grid > :last-child,
+      .series-variants > :last-child {
+        border-bottom: 0;
+      }
+
+      .hero-rail,
+      .feature-column,
+      .intro-lead,
+      .intro-detail,
+      .gallery-section-head > div,
+      .gallery-footer-inner,
+      .series-detail-head {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero-actions,
+      .button-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .hero-actions > *,
+      .button-row > * {
+        width: 100%;
+      }
+
+      .hero-note {
+        letter-spacing: 0.03em;
+      }
+
+      .mobile-nav-panel {
+        left: 10px;
+        right: 10px;
+      }
     }
 
-    @media (max-width: 720px) {
-      .page-shell { padding-bottom: 32px; }
-      .site-header { padding-top: 14px; padding-bottom: 14px; }
-      .hero { padding-top: 28px; }
-      .hero-links,
-      .spotlight-actions,
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
-      .product-option { grid-template-columns: 44px 1fr; }
-      .product-option-flag { display: none; }
-      .brand-mark strong { font-size: 24px; }
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#site-main">跳到正文</a>
   <header class="site-header" data-od-id="site-header">
-    <div class="site-header-inner">
-      <a class="brand-mark" href="#hero" data-od-id="brand-mark">
-        <strong>EYLOFORA</strong>
-        <span>Brand Catalogue</span>
-      </a>
-      <nav class="site-nav" id="site-nav" data-od-id="site-nav">
-        <a href="#hero" data-od-id="nav-home">首页</a>
-        <a href="#brand" data-od-id="nav-brand">品牌说明</a>
-        <a href="#catalogue" data-od-id="nav-catalogue">商品目录</a>
-        <a href="#rights" data-od-id="nav-rights">素材与权属</a>
-        <a href="product-template.html" data-od-id="nav-product-template">产品页模板</a>
+    <div class="page-shell site-header-inner">
+      <a class="brand-block" href="#hero-section" aria-label="EYLOFORA 首页">EYLOFORA</a>
+      <nav class="nav-row" aria-label="主导航">
+        <a class="nav-link is-current" aria-current="page" href="#hero-section">公开首页</a>
+        <a class="nav-link" href="#series-index-section">系列入口</a>
+        <a class="nav-link" href="#featured-objects-section">系列精选</a>
+        <a class="nav-link" href="#all-series-section">全部系列</a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a class="nav-link" href="#brand-intro-section">品牌判断</a>
       </nav>
-      <div class="header-actions">
-        <a class="text-button" href="#rights" data-od-id="header-proof-link">公开说明</a>
-        <button class="menu-button" type="button" id="menu-button" aria-expanded="false" aria-controls="site-nav" data-od-id="menu-button">目录</button>
+      <div class="nav-utility">
+        <a class="icon-link" href="#all-series-section">完整目录</a>
+        <a class="icon-link" href="#site-footer">图册联系</a>
       </div>
+      <details class="mobile-nav" data-od-id="mobile-nav">
+        <summary>目录</summary>
+        <div class="mobile-nav-panel" aria-label="移动导航">
+          <a href="#hero-section" aria-current="page">公开首页</a>
+          <a href="#brand-intro-section">品牌判断</a>
+          <a href="#series-index-section">系列入口</a>
+          <a href="#featured-objects-section">系列精选</a>
+          <a href="#trust-section">公开呈现</a>
+          <a href="#all-series-section">全部系列</a>
+          <a href="#site-footer">图册联系</a>
+        </div>
+      </details>
     </div>
   </header>
 
-  <div class="page-shell">
-    <main data-od-id="homepage-main">
-      <section class="hero" id="hero" data-od-id="hero-section">
-        <div>
-          <div class="eyebrow">在售品牌首页方案</div>
-          <h1 data-od-id="hero-title">以正式的公开展示，建立品牌与素材的长期秩序。</h1>
-          <p data-od-id="hero-body">
-            EYLOFORA 不是短期营销页，而是一套可以持续更新的品牌官网首页框架。
-            它首先呈现品牌气质、在售目录与素材权属，其次才是单品导流。页面因此更接近一本品牌画册，
-            而不是一个带口号的模板化落地页。
-          </p>
-          <div class="hero-meta" data-od-id="hero-meta">
-            <div>
-              <strong>站点定位</strong>
-              品牌官网首页 + 后续统一产品页模板
-            </div>
-            <div>
-              <strong>目标用户</strong>
-              面向普通消费者，同时承担公开展示与权属说明
-            </div>
-            <div>
-              <strong>内容语气</strong>
-              克制、真实、成熟，保留编辑式留白与细线层次
-            </div>
+  <main class="page-shell" id="site-main" data-od-id="site-main">
+    <section class="gallery-hero" id="hero-section" data-od-id="hero-section">
+      <div class="hero-rail">
+        <p class="eyebrow">EYLOFORA · 公开目录</p>
+        <h1 class="display" data-od-id="hero-title">先看系列判断，再进入每一件被整理过的日常物件。</h1>
+        <p class="body-copy">以真实系列图片与公开目录的方式，呈现桌面器物、雕塑摆件、聚会小物与织物配件，让浏览先从判断气质开始。</p>
+        <div class="hero-links">
+          <div class="hero-actions">
+            <a class="button-minimal is-strong" data-od-id="hero-primary-cta" href="#all-series-section">浏览全系列</a>
+            <a class="text-link" data-od-id="hero-secondary-cta" href="#series-index-section">查看系列入口</a>
           </div>
-          <div class="hero-links">
-            <a class="primary-link" href="#catalogue" data-od-id="hero-primary-link">查看在售目录节奏</a>
-            <a class="secondary-link" href="product-template.html" data-od-id="hero-secondary-link">进入产品页模板</a>
-          </div>
+          <p class="hero-note">先看系列判断，再进入具体变体。</p>
         </div>
-        <figure class="hero-figure" data-od-id="hero-figure">
-          <div class="figure-frame" data-od-id="hero-proof-board">
-            <div class="figure-board">
-              <article class="board-panel" data-od-id="board-panel-category">
-                <span>Category</span>
-                <strong>摆件<br />花器<br />手作软装</strong>
-                <p>以家居陈设类商品为主，强调静物、材质和摆放秩序。</p>
-              </article>
-              <article class="board-panel" data-od-id="board-panel-voice">
-                <span>Voice</span>
-                <strong>少口号<br />多说明</strong>
-                <p>文案优先写材质、用途、公开状态和更新时间，不做夸张营销宣言。</p>
-              </article>
-              <article class="board-panel wide" data-od-id="board-panel-structure">
-                <span>Homepage Logic</span>
-                <strong>品牌声明 → 目录节选 → 权属说明</strong>
-                <p>首屏先建立正式感；中段展示代表性在售条目；底部明确素材公开边界与详情页模板关系。</p>
-              </article>
-            </div>
-          </div>
-          <figcaption class="figure-caption" data-od-id="hero-figure-caption">
-            <span>首屏右侧改用品牌板式卡，而不是直接把首页做成电商截图。</span>
-            <span>公开目录事实切片保留在下方商品区。</span>
-          </figcaption>
-        </figure>
-      </section>
+      </div>
 
-      <section class="section" id="brand" data-od-id="brand-section">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Brand Position</div>
-            <h2 class="section-title" data-od-id="brand-title">像品牌手册，而不是电商组件集合。</h2>
-          </div>
-          <p class="section-intro" data-od-id="brand-intro">
-            这一段不负责“推销”，而负责让访问者迅速理解 EYLOFORA 的审美边界、
-            商品范围和公开原则。首页真正需要建立的是可信度：内容被持续维护、素材来源清晰、文字不过度承诺。
-          </p>
-        </div>
-        <div class="editorial-grid">
-          <div class="manifesto">
-            <article class="manifesto-block" data-od-id="manifesto-block-identity">
-              <h3>品牌身份</h3>
-              <p>
-                EYLOFORA 的公开呈现以家居摆件、花器、手作装饰和轻量生活用品为主。
-                页面不追求“爆款感”，而追求稳定、耐看和正式发布语境下的可信表达。
-              </p>
-            </article>
-            <article class="manifesto-block" data-od-id="manifesto-block-structure">
-              <h3>首页结构</h3>
-              <p>
-                顶部导航保持稀疏；首屏只放一个主声明与一张目录证据图；品牌介绍区改用编排关系来讲清立场；
-                商品展示区呈现选品谱系；素材与权属区承担法务与归档语义。
-              </p>
-            </article>
-            <article class="manifesto-block" data-od-id="manifesto-block-copy">
-              <h3>文案原则</h3>
-              <ul class="manifesto-list">
-                <li>不用空洞口号，不写夸张承诺，不造营销数据。</li>
-                <li>商品说明以材质、用途、视觉气质和公开时间为中心。</li>
-                <li>每个区块都承担一种明确职责，不重复同一套卡片语言。</li>
-              </ul>
-            </article>
-          </div>
-          <aside class="aside-note" data-od-id="brand-aside-note">
-            <div class="quote-mark">“</div>
-            <p>
-              页面参考借用了 Magnum Photos 的秩序感：衬线标题、细线分隔、目录式导航和正式的图文关系，
-              但会转译到消费品牌语境里，避免媒体站点的资讯密度。
-            </p>
-            <p>
-              视觉基底选暖骨色与炭棕黑，不做冷感科技灰，也不做高饱和品牌底色。
-              低饱和植物绿只保留给状态提示与少量细节点。
-            </p>
-          </aside>
-        </div>
-      </section>
+    <article class="feature-column">
+      <div class="photo-panel photo-real photo-tall">
+        <img class="panel-image" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/cover-01.webp" alt="猫咪雕塑 首页主视觉" loading="lazy" decoding="async">
+      </div>
+      <div>
+        <h2 class="feature-label">猫咪雕塑</h2>
+        <p class="feature-meta">以动物轮廓与静物感建立视觉停留。</p>
+      </div>
+    </article>
+  
 
-      <section class="section" id="catalogue" data-od-id="catalogue-section">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Selected Catalogue</div>
-            <h2 class="section-title" data-od-id="catalogue-title">商品展示区做成选品目录，不做促销宫格。</h2>
-          </div>
-          <p class="section-intro" data-od-id="catalogue-intro">
-            首页陈列不需要一次性塞满全部产品。更合理的方式是呈现一批具有代表性的在售条目，
-            让用户理解 EYLOFORA 的商品跨度与视觉统一性，再引导进入统一模板的产品详情页。
-          </p>
-        </div>
-        <div class="catalog-layout">
-          <div class="product-list" role="listbox" aria-label="EYLOFORA 商品节选" data-od-id="product-list">
-            <button class="product-option" type="button" aria-pressed="true" data-product="mahjong-clear" data-od-id="product-option-mahjong-clear">
-              <span class="product-option-index">01</span>
-              <span>
-                <span class="product-option-title">20 英寸亚克力麻将牌架</span>
-                <span class="product-option-subtitle">透明版本 · 收纳与桌面娱乐用品</span>
-              </span>
-              <span class="product-option-flag">在售</span>
-            </button>
-            <button class="product-option" type="button" aria-pressed="false" data-product="cat-statue" data-od-id="product-option-cat-statue">
-              <span class="product-option-index">02</span>
-              <span>
-                <span class="product-option-title">黑色猫咪树脂摆件</span>
-                <span class="product-option-subtitle">现代简约摆件 · 家居装饰</span>
-              </span>
-              <span class="product-option-flag">在售</span>
-            </button>
-            <button class="product-option" type="button" aria-pressed="false" data-product="book-vase" data-od-id="product-option-book-vase">
-              <span class="product-option-index">03</span>
-              <span>
-                <span class="product-option-title">陶瓷书本花器</span>
-                <span class="product-option-subtitle">堆叠书造型 · 小型花艺容器</span>
-              </span>
-              <span class="product-option-flag">在售</span>
-            </button>
-            <button class="product-option" type="button" aria-pressed="false" data-product="bunny-set" data-od-id="product-option-bunny-set">
-              <span class="product-option-index">04</span>
-              <span>
-                <span class="product-option-title">三件兔子雕塑组合</span>
-                <span class="product-option-subtitle">树脂摆件 · 入口柜与书架陈列</span>
-              </span>
-              <span class="product-option-flag">在售</span>
-            </button>
-            <button class="product-option" type="button" aria-pressed="false" data-product="shell-box" data-od-id="product-option-shell-box">
-              <span class="product-option-index">05</span>
-              <span>
-                <span class="product-option-title">贝壳造型纸巾盒</span>
-                <span class="product-option-subtitle">陶瓷日用件 · 洗衣房与卫浴</span>
-              </span>
-              <span class="product-option-flag">在售</span>
-            </button>
-            <button class="product-option" type="button" aria-pressed="false" data-product="fairy-stakes" data-od-id="product-option-fairy-stakes">
-              <span class="product-option-index">06</span>
-              <span>
-                <span class="product-option-title">花园精灵装饰插牌</span>
-                <span class="product-option-subtitle">微型花园配件 · 户外盆栽装饰</span>
-              </span>
-              <span class="product-option-flag">在售</span>
-            </button>
-            <button class="product-option" type="button" aria-pressed="false" data-product="reindeer" data-od-id="product-option-reindeer">
-              <span class="product-option-index">07</span>
-              <span>
-                <span class="product-option-title">黑色驯鹿摆件二件组</span>
-                <span class="product-option-subtitle">金属质感装饰 · 节庆陈列</span>
-              </span>
-              <span class="product-option-flag">在售</span>
-            </button>
-            <button class="product-option" type="button" aria-pressed="false" data-product="coasters" data-od-id="product-option-coasters">
-              <span class="product-option-index">08</span>
-              <span>
-                <span class="product-option-title">钩针花朵杯垫三件套</span>
-                <span class="product-option-subtitle">手作软装 · 桌面配件</span>
-              </span>
-              <span class="product-option-flag">在售</span>
-            </button>
-          </div>
+    <article class="feature-column">
+      <div class="photo-panel photo-real photo-tall">
+        <img class="panel-image" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/cover-01.webp" alt="书本花瓶 首页主视觉" loading="lazy" decoding="async">
+      </div>
+      <div>
+        <h2 class="feature-label">书本花瓶</h2>
+        <p class="feature-meta">让花器与平面陈列关系更直接可见。</p>
+      </div>
+    </article>
+  
 
-          <article class="spotlight" data-od-id="product-spotlight">
-            <div class="spotlight-header">
-              <div class="spotlight-kicker" id="spotlight-category">桌面娱乐 / 收纳</div>
-              <h3 class="spotlight-title" id="spotlight-title" data-od-id="spotlight-title">20 英寸亚克力麻将牌架</h3>
-              <p class="spotlight-body" id="spotlight-description" data-od-id="spotlight-description">
-                这类产品适合用规则式陈列图、细节局部图和包装说明图来建立正式感。首页里不直接拼成商品卡，
-                而是用单条目录语气呈现：产品名、用途、公开状态、后续进入详情页的入口。
-              </p>
-            </div>
-            <div class="spotlight-meta" data-od-id="spotlight-meta">
-              <div>
-                <strong>材质 / 类型</strong>
-                <span id="spotlight-material">亚克力 / 桌面配件</span>
-              </div>
-              <div>
-                <strong>公开素材模式</strong>
-                <span id="spotlight-assets">watermarked / edited-images</span>
-              </div>
-              <div>
-                <strong>详情页建议结构</strong>
-                <span id="spotlight-layout">主图、细节图、用途说明、权属声明</span>
-              </div>
-            </div>
-            <div class="spotlight-actions">
-              <a class="primary-link" href="product-template.html" data-od-id="spotlight-template-link">查看统一产品页模板</a>
-              <a class="secondary-link" href="#rights" data-od-id="spotlight-rights-link">查看素材公开规则</a>
-            </div>
-            <div class="spotlight-note" id="spotlight-note" data-od-id="spotlight-note">
-              首页的商品展示区只承担“目录意识”，不抢产品详情页的工作。真正的多图、参数、文案和版权字段，将在产品页模板里展开。
-            </div>
-          </article>
-        </div>
-        <div class="catalog-proof" data-od-id="catalog-proof">
-          <div class="section-kicker">Public Evidence Slice</div>
-          <img src="assets/eylofora-amazon.png" alt="EYLOFORA Amazon 在售页截图，用于展示当前公开目录范围" data-od-id="catalog-proof-image" />
-          <div class="footer-note">
-            这里保留当前公开在售页截图，作为“已公开商品范围”的事实切片。正式上线后可替换为经裁切的目录拼贴或分商品实拍。
-          </div>
-        </div>
-      </section>
+    <article class="feature-column">
+      <div class="photo-panel photo-real photo-tall">
+        <img class="panel-image" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/cover-01.webp" alt="麻将推尺 首页主视觉" loading="lazy" decoding="async">
+      </div>
+      <div>
+        <h2 class="feature-label">麻将推尺</h2>
+        <p class="feature-meta">围绕颜色与使用场景展开的聚会小物系列。</p>
+      </div>
+    </article>
+  
+    </section>
 
-      <section class="section" id="rights" data-od-id="rights-section">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Rights & Materials</div>
-            <h2 class="section-title" data-od-id="rights-title">素材 / 版权说明区必须说清边界，而不是藏在页脚。</h2>
-          </div>
-          <p class="section-intro" data-od-id="rights-intro">
-            对 EYLOFORA 来说，这一段不是附属说明，而是品牌官网的重要职责。访问者需要知道哪些内容是公开展示素材、
-            哪些来源于已上线商品、哪些图片会在后续详情页中以统一结构发布。
-          </p>
+    <section class="gallery-intro" id="brand-intro-section" data-od-id="brand-intro-section">
+      <div class="gallery-intro-grid">
+        <div class="intro-lead">
+          <p class="eyebrow">品牌导言</p>
+          <h2 class="section-title">不是先把商品铺满，而是先把整理逻辑公开出来。</h2>
         </div>
-        <div class="policy-layout">
-          <table class="policy-table" data-od-id="rights-policy-table">
-            <caption>公开边界与更新语义</caption>
-            <tbody>
-              <tr>
-                <th>公开站包含</th>
-                <td>商品列表、产品详情页、经过筛选的公开图片、标题与描述、权属说明、可见的更新时间。</td>
-              </tr>
-              <tr>
-                <th>公开站不包含</th>
-                <td>分层设计源文件、未发布备选稿、内部讨论记录、私有法律分析与未公开计划。</td>
-              </tr>
-              <tr>
-                <th>图片来源</th>
-                <td>优先使用 `edited-images/` 中的公开图；首页仅展示已确认可外放的材料，不混入原始工作图。</td>
-              </tr>
-              <tr>
-                <th>更新机制</th>
-                <td>首页展示“最近整理 / 最近发布”语义；产品页展示具体公开时间、素材模式与归属备注。</td>
-              </tr>
-              <tr>
-                <th>页面目的</th>
-                <td>既服务普通用户浏览，也服务品牌归档与权属记录，因此语气必须正式、可长期维护。</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="status-strip">
-            <article class="status-card" data-od-id="rights-status-card-assets">
-              <strong>素材目录建议</strong>
-              <p>
-                每个商品采用 `source-images / edited-images / copy / meta / rights` 的固定结构，
-                首页只读取已确认公开的条目摘要。
-              </p>
-            </article>
-            <article class="status-card" data-od-id="rights-status-card-template">
-              <strong>详情页模板统一</strong>
-              <p>
-                后续若干产品页不重新发明版式，而是复用一套详情页结构，
-                保证素材、文案与权属字段始终出现在稳定位置。
-              </p>
-            </article>
-            <article class="status-card" data-od-id="rights-status-card-voice">
-              <strong>公开语气控制</strong>
-              <p>
-                不使用“爆款”“极致”“颠覆”这类泛营销词。首页和详情页都以真实用途、材质和发布状态为主。
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer" data-od-id="site-footer">
-      <div class="footer-top">
-        <div>
-          <h3>EYLOFORA</h3>
-          <p class="footer-note">
-            一个以品牌感、公开素材秩序和长期可维护性为优先的品牌官网框架。
-            首页负责建立整体气质，产品页模板负责承接多图、多文案与权属字段。
-          </p>
-        </div>
-        <div>
-          <h3>首页入口</h3>
-          <div class="footer-links">
-            <a href="#hero" data-od-id="footer-link-home">首页首屏</a>
-            <a href="#brand" data-od-id="footer-link-brand">品牌说明</a>
-            <a href="#catalogue" data-od-id="footer-link-catalogue">商品目录</a>
-          </div>
-        </div>
-        <div>
-          <h3>公开规则</h3>
-          <div class="footer-links">
-            <a href="#rights" data-od-id="footer-link-rights">素材与权属</a>
-            <a href="product-template.html" data-od-id="footer-link-template">产品页模板</a>
-            <a href="brand-spec.md" data-od-id="footer-link-spec">品牌规格</a>
-          </div>
-        </div>
-        <div>
-          <h3>上线后可补</h3>
-          <div class="footer-links">
-            <span class="footer-note" data-od-id="footer-link-contact">品牌邮箱（上线后补入）</span>
-            <span class="footer-note" data-od-id="footer-link-press">媒体与授权入口（上线后补入）</span>
-            <span class="footer-note" data-od-id="footer-link-policy">隐私与使用条款（上线后补入）</span>
+        <div class="intro-detail">
+          <p class="body-copy">EYLOFORA 将真实系列按空间气质、使用情境与观看关系重新排布，让访客先理解这些物件为什么会被放在一起，再继续往下浏览全部内容。</p>
+          <div class="statement-list" data-od-id="selection-logic">
+            <div>先看分组，而不只看单品用途</div>
+            <div>先看系列，再理解颜色与变体关系</div>
+            <div>公开整理全部系列，而不是只留精选</div>
           </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <span>当前阶段：品牌首页方案 + 统一产品页模板</span>
-        <span>目录事实来源：EYLOFORA Amazon 在售页截图</span>
+    </section>
+
+    <section class="gallery-categories" id="series-index-section" data-od-id="style-categories-section">
+      <div class="gallery-section-head">
+        <div>
+          <p class="eyebrow">系列入口</p>
+        </div>
+        <div>
+          <h2 class="section-title">先从完整系列目录进入，再决定要继续看哪一种日常陈列。</h2>
+        </div>
       </div>
-    </footer>
-  </div>
+
+      <div class="gallery-categories-grid">
+
+    <article class="grid-card series-card" id="series-card-老款猫灯">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/card-01.webp" alt="老款猫灯 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">雕塑与摆件</p>
+        <h3 class="feature-label">老款猫灯</h3>
+        <p class="feature-meta">带有角色感与照明趣味的摆件系列。</p>
+        <p class="series-count">1 个变体 · 12 张图</p>
+        <a class="text-link" href="#series-老款猫灯">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-猫咪雕塑">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/card-01.webp" alt="猫咪雕塑 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">雕塑与摆件</p>
+        <h3 class="feature-label">猫咪雕塑</h3>
+        <p class="feature-meta">以动物轮廓与静物感建立视觉停留。</p>
+        <p class="series-count">1 个变体 · 12 张图</p>
+        <a class="text-link" href="#series-猫咪雕塑">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-兔子雕塑">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/card-01.webp" alt="兔子雕塑 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">雕塑与摆件</p>
+        <h3 class="feature-label">兔子雕塑</h3>
+        <p class="feature-meta">以角色轮廓和摆放关系形成视觉记忆。</p>
+        <p class="series-count">1 个变体 · 14 张图</p>
+        <a class="text-link" href="#series-兔子雕塑">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-仙女地插摆件">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/card-01.webp" alt="仙女地插摆件 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">雕塑与摆件</p>
+        <h3 class="feature-label">仙女地插摆件</h3>
+        <p class="feature-meta">具有装饰性与场景感的地插类摆件。</p>
+        <p class="series-count">1 个变体 · 7 张图</p>
+        <a class="text-link" href="#series-仙女地插摆件">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-贝壳纸巾盒">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/card-01.webp" alt="贝壳纸巾盒 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">桌面器物</p>
+        <h3 class="feature-label">贝壳纸巾盒</h3>
+        <p class="feature-meta">以贝壳轮廓和桌面陈列感建立系列辨识。</p>
+        <p class="series-count">4 个变体 · 18 张图</p>
+        <a class="text-link" href="#series-贝壳纸巾盒">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-书本花瓶">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/card-01.webp" alt="书本花瓶 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">桌面器物</p>
+        <h3 class="feature-label">书本花瓶</h3>
+        <p class="feature-meta">让花器与平面陈列关系更直接可见。</p>
+        <p class="series-count">1 个变体 · 7 张图</p>
+        <a class="text-link" href="#series-书本花瓶">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-陶瓷香薰炉">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/card-01.webp" alt="陶瓷香薰炉 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">桌面器物</p>
+        <h3 class="feature-label">陶瓷香薰炉</h3>
+        <p class="feature-meta">更强调器物感和静态陈列气质的系列。</p>
+        <p class="series-count">1 个变体 · 15 张图</p>
+        <a class="text-link" href="#series-陶瓷香薰炉">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-方形桌球摆球器">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/card-01.webp" alt="方形桌球摆球器 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">游戏与聚会小物</p>
+        <h3 class="feature-label">方形桌球摆球器</h3>
+        <p class="feature-meta">将桌球相关器物整理成更明确的几何陈列。</p>
+        <p class="series-count">2 个变体 · 32 张图</p>
+        <a class="text-link" href="#series-方形桌球摆球器">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-麻将卡支架">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/card-01.webp" alt="麻将卡支架 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">游戏与聚会小物</p>
+        <h3 class="feature-label">麻将卡支架</h3>
+        <p class="feature-meta">以颜色区分和聚会使用场景形成完整目录。</p>
+        <p class="series-count">10 个变体 · 79 张图</p>
+        <a class="text-link" href="#series-麻将卡支架">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-麻将推尺">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/card-01.webp" alt="麻将推尺 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">游戏与聚会小物</p>
+        <h3 class="feature-label">麻将推尺</h3>
+        <p class="feature-meta">围绕颜色与使用场景展开的聚会小物系列。</p>
+        <p class="series-count">10 个变体 · 140 张图</p>
+        <a class="text-link" href="#series-麻将推尺">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-桌球摆球器">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/card-01.webp" alt="桌球摆球器 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">游戏与聚会小物</p>
+        <h3 class="feature-label">桌球摆球器</h3>
+        <p class="feature-meta">围绕桌球场景整理的器物型系列。</p>
+        <p class="series-count">3 个变体 · 45 张图</p>
+        <a class="text-link" href="#series-桌球摆球器">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-青蛙手机包">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/card-01.webp" alt="青蛙手机包 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">织物与配件</p>
+        <h3 class="feature-label">青蛙手机包</h3>
+        <p class="feature-meta">更偏日常携带与轻松表达的小型配件系列。</p>
+        <p class="series-count">3 个变体 · 27 张图</p>
+        <a class="text-link" href="#series-青蛙手机包">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-手工杯垫">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/card-01.webp" alt="手工杯垫 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">织物与配件</p>
+        <h3 class="feature-label">手工杯垫</h3>
+        <p class="feature-meta">适合桌面细节和轻礼物场景的织物小物。</p>
+        <p class="series-count">2 个变体 · 24 张图</p>
+        <a class="text-link" href="#series-手工杯垫">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-鼠标垫xl">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/card-01.webp" alt="鼠标垫XL 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">织物与配件</p>
+        <h3 class="feature-label">鼠标垫XL</h3>
+        <p class="feature-meta">偏向桌面铺陈与使用面的系列。</p>
+        <p class="series-count">1 个变体 · 12 张图</p>
+        <a class="text-link" href="#series-鼠标垫xl">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-鼠标垫xxl">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/card-01.webp" alt="鼠标垫XXL 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">织物与配件</p>
+        <h3 class="feature-label">鼠标垫XXL</h3>
+        <p class="feature-meta">延展桌面尺度与整体铺陈关系的系列。</p>
+        <p class="series-count">1 个变体 · 12 张图</p>
+        <a class="text-link" href="#series-鼠标垫xxl">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-鹦鹉披肩">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/card-01.webp" alt="鹦鹉披肩 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">织物与配件</p>
+        <h3 class="feature-label">鹦鹉披肩</h3>
+        <p class="feature-meta">更接近日常穿戴与礼物线索的织物系列。</p>
+        <p class="series-count">3 个变体 · 36 张图</p>
+        <a class="text-link" href="#series-鹦鹉披肩">查看完整系列</a>
+      </div>
+    </article>
+  
+      </div>
+    </section>
+
+    <section class="gallery-featured" id="featured-objects-section" data-od-id="featured-objects-section">
+      <div class="gallery-section-head">
+        <div>
+          <p class="eyebrow">系列精选</p>
+        </div>
+        <div>
+          <h2 class="section-title">让代表性系列先建立品牌判断，再进入完整目录。</h2>
+        </div>
+      </div>
+
+      <div class="gallery-featured-grid">
+
+    <article class="grid-card series-card" id="series-card-猫咪雕塑">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/card-01.webp" alt="猫咪雕塑 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">雕塑与摆件</p>
+        <h3 class="feature-label">猫咪雕塑</h3>
+        <p class="feature-meta">以动物轮廓与静物感建立视觉停留。</p>
+        <p class="series-count">1 个变体 · 12 张图</p>
+        <a class="text-link" href="#series-猫咪雕塑">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-书本花瓶">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/card-01.webp" alt="书本花瓶 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">桌面器物</p>
+        <h3 class="feature-label">书本花瓶</h3>
+        <p class="feature-meta">让花器与平面陈列关系更直接可见。</p>
+        <p class="series-count">1 个变体 · 7 张图</p>
+        <a class="text-link" href="#series-书本花瓶">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-贝壳纸巾盒">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/card-01.webp" alt="贝壳纸巾盒 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">桌面器物</p>
+        <h3 class="feature-label">贝壳纸巾盒</h3>
+        <p class="feature-meta">以贝壳轮廓和桌面陈列感建立系列辨识。</p>
+        <p class="series-count">4 个变体 · 18 张图</p>
+        <a class="text-link" href="#series-贝壳纸巾盒">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-麻将推尺">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/card-01.webp" alt="麻将推尺 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">游戏与聚会小物</p>
+        <h3 class="feature-label">麻将推尺</h3>
+        <p class="feature-meta">围绕颜色与使用场景展开的聚会小物系列。</p>
+        <p class="series-count">10 个变体 · 140 张图</p>
+        <a class="text-link" href="#series-麻将推尺">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-麻将卡支架">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/card-01.webp" alt="麻将卡支架 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">游戏与聚会小物</p>
+        <h3 class="feature-label">麻将卡支架</h3>
+        <p class="feature-meta">以颜色区分和聚会使用场景形成完整目录。</p>
+        <p class="series-count">10 个变体 · 79 张图</p>
+        <a class="text-link" href="#series-麻将卡支架">查看完整系列</a>
+      </div>
+    </article>
+  
+
+    <article class="grid-card series-card" id="series-card-鹦鹉披肩">
+      <div class="photo-panel photo-real">
+        <img class="panel-image" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/card-01.webp" alt="鹦鹉披肩 系列封面" loading="lazy" decoding="async">
+      </div>
+      <div class="series-card-body">
+        <p class="eyebrow">织物与配件</p>
+        <h3 class="feature-label">鹦鹉披肩</h3>
+        <p class="feature-meta">更接近日常穿戴与礼物线索的织物系列。</p>
+        <p class="series-count">3 个变体 · 36 张图</p>
+        <a class="text-link" href="#series-鹦鹉披肩">查看完整系列</a>
+      </div>
+    </article>
+  
+      </div>
+    </section>
+
+    <section class="gallery-trust" id="trust-section" data-od-id="trust-section">
+      <div class="gallery-section-head">
+        <div>
+          <p class="eyebrow">公开展示</p>
+        </div>
+        <div>
+          <h2 class="section-title">所有系列都进入同一份可浏览的公开目录。</h2>
+          <p class="body-copy" style="margin-top:14px">当前页面完整覆盖本批上品素材的全部系列，并保留各自的颜色和变体，作为品牌公开展示的一部分持续整理。</p>
+        </div>
+      </div>
+
+      <div class="gallery-trust-grid">
+
+    <article>
+      <p class="eyebrow">系列分组</p>
+      <h3 class="feature-label">雕塑与摆件</h3>
+      <p class="feature-meta">以轮廓、静物感与空间停留感为主的系列。</p>
+    </article>
+  
+
+    <article>
+      <p class="eyebrow">系列分组</p>
+      <h3 class="feature-label">桌面器物</h3>
+      <p class="feature-meta">适合桌面、角落与安静陈列关系的系列。</p>
+    </article>
+  
+
+    <article>
+      <p class="eyebrow">系列分组</p>
+      <h3 class="feature-label">游戏与聚会小物</h3>
+      <p class="feature-meta">围绕桌游、聚会与互动场景整理的系列。</p>
+    </article>
+  
+
+    <article>
+      <p class="eyebrow">系列分组</p>
+      <h3 class="feature-label">织物与配件</h3>
+      <p class="feature-meta">更轻松、亲近、适合日常搭配和礼物判断的系列。</p>
+    </article>
+  
+      </div>
+    </section>
+
+    <section class="gallery-all-series" id="all-series-section" data-od-id="all-series-section">
+
+      <section class="series-group-block" id="group-雕塑与摆件">
+        <div class="gallery-section-head">
+          <div>
+            <p class="eyebrow">系列分组</p>
+          </div>
+          <div>
+            <h2 class="section-title">雕塑与摆件</h2>
+            <p class="body-copy">以轮廓、静物感与空间停留感为主的系列。</p>
+          </div>
+        </div>
+        <div class="series-group-list">
+          
+    <article class="series-detail" id="series-老款猫灯">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">雕塑与摆件</p>
+          <h3 class="section-title">老款猫灯</h3>
+          <p class="body-copy">带有角色感与照明趣味的摆件系列。</p>
+          <p class="series-count">1 个变体 · 12 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/cover-01.webp" alt="老款猫灯 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-老款猫灯-标准">
+      <div class="variant-head">
+        <h4>标准</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-01.webp" alt="老款猫灯 标准 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-02.webp" alt="老款猫灯 标准 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-03.webp" alt="老款猫灯 标准 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-04.webp" alt="老款猫灯 标准 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-05.webp" alt="老款猫灯 标准 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-06.webp" alt="老款猫灯 标准 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-07.webp" alt="老款猫灯 标准 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-08.webp" alt="老款猫灯 标准 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-09.webp" alt="老款猫灯 标准 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-10.webp" alt="老款猫灯 标准 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-11.webp" alt="老款猫灯 标准 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/老款猫灯/老款猫灯-标准/thumb-12.webp" alt="老款猫灯 标准 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-猫咪雕塑">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">雕塑与摆件</p>
+          <h3 class="section-title">猫咪雕塑</h3>
+          <p class="body-copy">以动物轮廓与静物感建立视觉停留。</p>
+          <p class="series-count">1 个变体 · 12 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/cover-01.webp" alt="猫咪雕塑 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-猫咪雕塑-标准">
+      <div class="variant-head">
+        <h4>标准</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-01.webp" alt="猫咪雕塑 标准 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-02.webp" alt="猫咪雕塑 标准 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-03.webp" alt="猫咪雕塑 标准 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-04.webp" alt="猫咪雕塑 标准 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-05.webp" alt="猫咪雕塑 标准 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-06.webp" alt="猫咪雕塑 标准 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-07.webp" alt="猫咪雕塑 标准 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-08.webp" alt="猫咪雕塑 标准 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-09.webp" alt="猫咪雕塑 标准 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-10.webp" alt="猫咪雕塑 标准 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-11.webp" alt="猫咪雕塑 标准 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/猫咪雕塑/猫咪雕塑-标准/thumb-12.webp" alt="猫咪雕塑 标准 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-兔子雕塑">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">雕塑与摆件</p>
+          <h3 class="section-title">兔子雕塑</h3>
+          <p class="body-copy">以角色轮廓和摆放关系形成视觉记忆。</p>
+          <p class="series-count">1 个变体 · 14 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/cover-01.webp" alt="兔子雕塑 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-兔子雕塑-标准">
+      <div class="variant-head">
+        <h4>标准</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-01.webp" alt="兔子雕塑 标准 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-02.webp" alt="兔子雕塑 标准 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-03.webp" alt="兔子雕塑 标准 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-04.webp" alt="兔子雕塑 标准 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-05.webp" alt="兔子雕塑 标准 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-06.webp" alt="兔子雕塑 标准 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-07.webp" alt="兔子雕塑 标准 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-08.webp" alt="兔子雕塑 标准 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-09.webp" alt="兔子雕塑 标准 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-10.webp" alt="兔子雕塑 标准 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-11.webp" alt="兔子雕塑 标准 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-12.webp" alt="兔子雕塑 标准 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-13.webp" alt="兔子雕塑 标准 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/兔子雕塑/兔子雕塑-标准/thumb-14.webp" alt="兔子雕塑 标准 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-仙女地插摆件">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">雕塑与摆件</p>
+          <h3 class="section-title">仙女地插摆件</h3>
+          <p class="body-copy">具有装饰性与场景感的地插类摆件。</p>
+          <p class="series-count">1 个变体 · 7 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/cover-01.webp" alt="仙女地插摆件 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-仙女地插摆件-标准">
+      <div class="variant-head">
+        <h4>标准</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/thumb-01.webp" alt="仙女地插摆件 标准 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/thumb-02.webp" alt="仙女地插摆件 标准 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/thumb-03.webp" alt="仙女地插摆件 标准 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/thumb-04.webp" alt="仙女地插摆件 标准 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/thumb-05.webp" alt="仙女地插摆件 标准 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/thumb-06.webp" alt="仙女地插摆件 标准 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/仙女地插摆件/仙女地插摆件-标准/thumb-07.webp" alt="仙女地插摆件 标准 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+        </div>
+      </section>
+    
+
+      <section class="series-group-block" id="group-桌面器物">
+        <div class="gallery-section-head">
+          <div>
+            <p class="eyebrow">系列分组</p>
+          </div>
+          <div>
+            <h2 class="section-title">桌面器物</h2>
+            <p class="body-copy">适合桌面、角落与安静陈列关系的系列。</p>
+          </div>
+        </div>
+        <div class="series-group-list">
+          
+    <article class="series-detail" id="series-贝壳纸巾盒">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">桌面器物</p>
+          <h3 class="section-title">贝壳纸巾盒</h3>
+          <p class="body-copy">以贝壳轮廓和桌面陈列感建立系列辨识。</p>
+          <p class="series-count">4 个变体 · 18 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/cover-01.webp" alt="贝壳纸巾盒 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-贝壳纸巾盒-白">
+      <div class="variant-head">
+        <h4>白</h4>
+        <p>8 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/thumb-01.webp" alt="贝壳纸巾盒 白 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/thumb-02.webp" alt="贝壳纸巾盒 白 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/thumb-03.webp" alt="贝壳纸巾盒 白 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/thumb-04.webp" alt="贝壳纸巾盒 白 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/thumb-05.webp" alt="贝壳纸巾盒 白 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/thumb-06.webp" alt="贝壳纸巾盒 白 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/thumb-07.webp" alt="贝壳纸巾盒 白 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-白/thumb-08.webp" alt="贝壳纸巾盒 白 图 8" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-贝壳纸巾盒-黑">
+      <div class="variant-head">
+        <h4>黑</h4>
+        <p>1 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-黑/thumb-01.webp" alt="贝壳纸巾盒 黑 图 1" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-贝壳纸巾盒-米">
+      <div class="variant-head">
+        <h4>米</h4>
+        <p>1 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-米/thumb-01.webp" alt="贝壳纸巾盒 米 图 1" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-贝壳纸巾盒-银">
+      <div class="variant-head">
+        <h4>银</h4>
+        <p>8 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-银/thumb-01.webp" alt="贝壳纸巾盒 银 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-银/thumb-02.webp" alt="贝壳纸巾盒 银 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-银/thumb-03.webp" alt="贝壳纸巾盒 银 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-银/thumb-04.webp" alt="贝壳纸巾盒 银 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-银/thumb-05.webp" alt="贝壳纸巾盒 银 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-银/thumb-06.webp" alt="贝壳纸巾盒 银 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-银/thumb-07.webp" alt="贝壳纸巾盒 银 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/贝壳纸巾盒/贝壳纸巾盒-银/thumb-08.webp" alt="贝壳纸巾盒 银 图 8" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-书本花瓶">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">桌面器物</p>
+          <h3 class="section-title">书本花瓶</h3>
+          <p class="body-copy">让花器与平面陈列关系更直接可见。</p>
+          <p class="series-count">1 个变体 · 7 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/cover-01.webp" alt="书本花瓶 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-书本花瓶-标准">
+      <div class="variant-head">
+        <h4>标准</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/thumb-01.webp" alt="书本花瓶 标准 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/thumb-02.webp" alt="书本花瓶 标准 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/thumb-03.webp" alt="书本花瓶 标准 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/thumb-04.webp" alt="书本花瓶 标准 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/thumb-05.webp" alt="书本花瓶 标准 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/thumb-06.webp" alt="书本花瓶 标准 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/书本花瓶/书本花瓶-标准/thumb-07.webp" alt="书本花瓶 标准 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-陶瓷香薰炉">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">桌面器物</p>
+          <h3 class="section-title">陶瓷香薰炉</h3>
+          <p class="body-copy">更强调器物感和静态陈列气质的系列。</p>
+          <p class="series-count">1 个变体 · 15 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/cover-01.webp" alt="陶瓷香薰炉 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-陶瓷香薰炉-标准">
+      <div class="variant-head">
+        <h4>标准</h4>
+        <p>15 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-01.webp" alt="陶瓷香薰炉 标准 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-02.webp" alt="陶瓷香薰炉 标准 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-03.webp" alt="陶瓷香薰炉 标准 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-04.webp" alt="陶瓷香薰炉 标准 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-05.webp" alt="陶瓷香薰炉 标准 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-06.webp" alt="陶瓷香薰炉 标准 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-07.webp" alt="陶瓷香薰炉 标准 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-08.webp" alt="陶瓷香薰炉 标准 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-09.webp" alt="陶瓷香薰炉 标准 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-10.webp" alt="陶瓷香薰炉 标准 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-11.webp" alt="陶瓷香薰炉 标准 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-12.webp" alt="陶瓷香薰炉 标准 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-13.webp" alt="陶瓷香薰炉 标准 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-14.webp" alt="陶瓷香薰炉 标准 图 14" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/陶瓷香薰炉/陶瓷香薰炉-标准/thumb-15.webp" alt="陶瓷香薰炉 标准 图 15" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+        </div>
+      </section>
+    
+
+      <section class="series-group-block" id="group-游戏与聚会小物">
+        <div class="gallery-section-head">
+          <div>
+            <p class="eyebrow">系列分组</p>
+          </div>
+          <div>
+            <h2 class="section-title">游戏与聚会小物</h2>
+            <p class="body-copy">围绕桌游、聚会与互动场景整理的系列。</p>
+          </div>
+        </div>
+        <div class="series-group-list">
+          
+    <article class="series-detail" id="series-方形桌球摆球器">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">游戏与聚会小物</p>
+          <h3 class="section-title">方形桌球摆球器</h3>
+          <p class="body-copy">将桌球相关器物整理成更明确的几何陈列。</p>
+          <p class="series-count">2 个变体 · 32 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/cover-01.webp" alt="方形桌球摆球器 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-方形桌球摆球器-黑">
+      <div class="variant-head">
+        <h4>黑</h4>
+        <p>16 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-01.webp" alt="方形桌球摆球器 黑 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-02.webp" alt="方形桌球摆球器 黑 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-03.webp" alt="方形桌球摆球器 黑 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-04.webp" alt="方形桌球摆球器 黑 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-05.webp" alt="方形桌球摆球器 黑 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-06.webp" alt="方形桌球摆球器 黑 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-07.webp" alt="方形桌球摆球器 黑 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-08.webp" alt="方形桌球摆球器 黑 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-09.webp" alt="方形桌球摆球器 黑 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-10.webp" alt="方形桌球摆球器 黑 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-11.webp" alt="方形桌球摆球器 黑 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-12.webp" alt="方形桌球摆球器 黑 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-13.webp" alt="方形桌球摆球器 黑 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-14.webp" alt="方形桌球摆球器 黑 图 14" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-15.webp" alt="方形桌球摆球器 黑 图 15" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-黑/thumb-16.webp" alt="方形桌球摆球器 黑 图 16" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-方形桌球摆球器-红">
+      <div class="variant-head">
+        <h4>红</h4>
+        <p>16 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-01.webp" alt="方形桌球摆球器 红 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-02.webp" alt="方形桌球摆球器 红 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-03.webp" alt="方形桌球摆球器 红 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-04.webp" alt="方形桌球摆球器 红 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-05.webp" alt="方形桌球摆球器 红 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-06.webp" alt="方形桌球摆球器 红 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-07.webp" alt="方形桌球摆球器 红 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-08.webp" alt="方形桌球摆球器 红 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-09.webp" alt="方形桌球摆球器 红 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-10.webp" alt="方形桌球摆球器 红 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-11.webp" alt="方形桌球摆球器 红 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-12.webp" alt="方形桌球摆球器 红 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-13.webp" alt="方形桌球摆球器 红 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-14.webp" alt="方形桌球摆球器 红 图 14" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-15.webp" alt="方形桌球摆球器 红 图 15" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/方形桌球摆球器/方形桌球摆球器-红/thumb-16.webp" alt="方形桌球摆球器 红 图 16" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-麻将卡支架">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">游戏与聚会小物</p>
+          <h3 class="section-title">麻将卡支架</h3>
+          <p class="body-copy">以颜色区分和聚会使用场景形成完整目录。</p>
+          <p class="series-count">10 个变体 · 79 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/cover-01.webp" alt="麻将卡支架 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-麻将卡支架-白">
+      <div class="variant-head">
+        <h4>白</h4>
+        <p>16 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-01.webp" alt="麻将卡支架 白 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-02.webp" alt="麻将卡支架 白 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-03.webp" alt="麻将卡支架 白 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-04.webp" alt="麻将卡支架 白 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-05.webp" alt="麻将卡支架 白 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-06.webp" alt="麻将卡支架 白 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-07.webp" alt="麻将卡支架 白 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-08.webp" alt="麻将卡支架 白 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-09.webp" alt="麻将卡支架 白 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-10.webp" alt="麻将卡支架 白 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-11.webp" alt="麻将卡支架 白 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-12.webp" alt="麻将卡支架 白 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-13.webp" alt="麻将卡支架 白 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-14.webp" alt="麻将卡支架 白 图 14" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-15.webp" alt="麻将卡支架 白 图 15" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-白/thumb-16.webp" alt="麻将卡支架 白 图 16" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-橙">
+      <div class="variant-head">
+        <h4>橙</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-橙/thumb-01.webp" alt="麻将卡支架 橙 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-橙/thumb-02.webp" alt="麻将卡支架 橙 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-橙/thumb-03.webp" alt="麻将卡支架 橙 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-橙/thumb-04.webp" alt="麻将卡支架 橙 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-橙/thumb-05.webp" alt="麻将卡支架 橙 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-橙/thumb-06.webp" alt="麻将卡支架 橙 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-橙/thumb-07.webp" alt="麻将卡支架 橙 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-粉">
+      <div class="variant-head">
+        <h4>粉</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-粉/thumb-01.webp" alt="麻将卡支架 粉 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-粉/thumb-02.webp" alt="麻将卡支架 粉 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-粉/thumb-03.webp" alt="麻将卡支架 粉 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-粉/thumb-04.webp" alt="麻将卡支架 粉 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-粉/thumb-05.webp" alt="麻将卡支架 粉 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-粉/thumb-06.webp" alt="麻将卡支架 粉 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-粉/thumb-07.webp" alt="麻将卡支架 粉 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-黑">
+      <div class="variant-head">
+        <h4>黑</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黑/thumb-01.webp" alt="麻将卡支架 黑 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黑/thumb-02.webp" alt="麻将卡支架 黑 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黑/thumb-03.webp" alt="麻将卡支架 黑 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黑/thumb-04.webp" alt="麻将卡支架 黑 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黑/thumb-05.webp" alt="麻将卡支架 黑 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黑/thumb-06.webp" alt="麻将卡支架 黑 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黑/thumb-07.webp" alt="麻将卡支架 黑 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-红">
+      <div class="variant-head">
+        <h4>红</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-红/thumb-01.webp" alt="麻将卡支架 红 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-红/thumb-02.webp" alt="麻将卡支架 红 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-红/thumb-03.webp" alt="麻将卡支架 红 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-红/thumb-04.webp" alt="麻将卡支架 红 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-红/thumb-05.webp" alt="麻将卡支架 红 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-红/thumb-06.webp" alt="麻将卡支架 红 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-红/thumb-07.webp" alt="麻将卡支架 红 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-黄">
+      <div class="variant-head">
+        <h4>黄</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黄/thumb-01.webp" alt="麻将卡支架 黄 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黄/thumb-02.webp" alt="麻将卡支架 黄 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黄/thumb-03.webp" alt="麻将卡支架 黄 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黄/thumb-04.webp" alt="麻将卡支架 黄 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黄/thumb-05.webp" alt="麻将卡支架 黄 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黄/thumb-06.webp" alt="麻将卡支架 黄 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-黄/thumb-07.webp" alt="麻将卡支架 黄 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-蓝">
+      <div class="variant-head">
+        <h4>蓝</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-蓝/thumb-01.webp" alt="麻将卡支架 蓝 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-蓝/thumb-02.webp" alt="麻将卡支架 蓝 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-蓝/thumb-03.webp" alt="麻将卡支架 蓝 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-蓝/thumb-04.webp" alt="麻将卡支架 蓝 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-蓝/thumb-05.webp" alt="麻将卡支架 蓝 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-蓝/thumb-06.webp" alt="麻将卡支架 蓝 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-蓝/thumb-07.webp" alt="麻将卡支架 蓝 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-绿">
+      <div class="variant-head">
+        <h4>绿</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-绿/thumb-01.webp" alt="麻将卡支架 绿 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-绿/thumb-02.webp" alt="麻将卡支架 绿 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-绿/thumb-03.webp" alt="麻将卡支架 绿 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-绿/thumb-04.webp" alt="麻将卡支架 绿 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-绿/thumb-05.webp" alt="麻将卡支架 绿 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-绿/thumb-06.webp" alt="麻将卡支架 绿 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-绿/thumb-07.webp" alt="麻将卡支架 绿 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-玫红">
+      <div class="variant-head">
+        <h4>玫红</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-玫红/thumb-01.webp" alt="麻将卡支架 玫红 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-玫红/thumb-02.webp" alt="麻将卡支架 玫红 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-玫红/thumb-03.webp" alt="麻将卡支架 玫红 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-玫红/thumb-04.webp" alt="麻将卡支架 玫红 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-玫红/thumb-05.webp" alt="麻将卡支架 玫红 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-玫红/thumb-06.webp" alt="麻将卡支架 玫红 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-玫红/thumb-07.webp" alt="麻将卡支架 玫红 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将卡支架-紫">
+      <div class="variant-head">
+        <h4>紫</h4>
+        <p>7 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-紫/thumb-01.webp" alt="麻将卡支架 紫 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-紫/thumb-02.webp" alt="麻将卡支架 紫 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-紫/thumb-03.webp" alt="麻将卡支架 紫 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-紫/thumb-04.webp" alt="麻将卡支架 紫 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-紫/thumb-05.webp" alt="麻将卡支架 紫 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-紫/thumb-06.webp" alt="麻将卡支架 紫 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将卡支架/麻将卡支架-紫/thumb-07.webp" alt="麻将卡支架 紫 图 7" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-麻将推尺">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">游戏与聚会小物</p>
+          <h3 class="section-title">麻将推尺</h3>
+          <p class="body-copy">围绕颜色与使用场景展开的聚会小物系列。</p>
+          <p class="series-count">10 个变体 · 140 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/cover-01.webp" alt="麻将推尺 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-麻将推尺-白">
+      <div class="variant-head">
+        <h4>白</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-01.webp" alt="麻将推尺 白 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-02.webp" alt="麻将推尺 白 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-03.webp" alt="麻将推尺 白 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-04.webp" alt="麻将推尺 白 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-05.webp" alt="麻将推尺 白 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-06.webp" alt="麻将推尺 白 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-07.webp" alt="麻将推尺 白 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-08.webp" alt="麻将推尺 白 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-09.webp" alt="麻将推尺 白 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-10.webp" alt="麻将推尺 白 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-11.webp" alt="麻将推尺 白 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-12.webp" alt="麻将推尺 白 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-13.webp" alt="麻将推尺 白 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-白/thumb-14.webp" alt="麻将推尺 白 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-橙玳瑁">
+      <div class="variant-head">
+        <h4>橙玳瑁</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-01.webp" alt="麻将推尺 橙玳瑁 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-02.webp" alt="麻将推尺 橙玳瑁 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-03.webp" alt="麻将推尺 橙玳瑁 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-04.webp" alt="麻将推尺 橙玳瑁 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-05.webp" alt="麻将推尺 橙玳瑁 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-06.webp" alt="麻将推尺 橙玳瑁 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-07.webp" alt="麻将推尺 橙玳瑁 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-08.webp" alt="麻将推尺 橙玳瑁 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-09.webp" alt="麻将推尺 橙玳瑁 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-10.webp" alt="麻将推尺 橙玳瑁 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-11.webp" alt="麻将推尺 橙玳瑁 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-12.webp" alt="麻将推尺 橙玳瑁 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-13.webp" alt="麻将推尺 橙玳瑁 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-橙玳瑁/thumb-14.webp" alt="麻将推尺 橙玳瑁 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-粉">
+      <div class="variant-head">
+        <h4>粉</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-01.webp" alt="麻将推尺 粉 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-02.webp" alt="麻将推尺 粉 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-03.webp" alt="麻将推尺 粉 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-04.webp" alt="麻将推尺 粉 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-05.webp" alt="麻将推尺 粉 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-06.webp" alt="麻将推尺 粉 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-07.webp" alt="麻将推尺 粉 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-08.webp" alt="麻将推尺 粉 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-09.webp" alt="麻将推尺 粉 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-10.webp" alt="麻将推尺 粉 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-11.webp" alt="麻将推尺 粉 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-12.webp" alt="麻将推尺 粉 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-13.webp" alt="麻将推尺 粉 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-粉/thumb-14.webp" alt="麻将推尺 粉 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-红玳瑁">
+      <div class="variant-head">
+        <h4>红玳瑁</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-01.webp" alt="麻将推尺 红玳瑁 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-02.webp" alt="麻将推尺 红玳瑁 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-03.webp" alt="麻将推尺 红玳瑁 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-04.webp" alt="麻将推尺 红玳瑁 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-05.webp" alt="麻将推尺 红玳瑁 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-06.webp" alt="麻将推尺 红玳瑁 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-07.webp" alt="麻将推尺 红玳瑁 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-08.webp" alt="麻将推尺 红玳瑁 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-09.webp" alt="麻将推尺 红玳瑁 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-10.webp" alt="麻将推尺 红玳瑁 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-11.webp" alt="麻将推尺 红玳瑁 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-12.webp" alt="麻将推尺 红玳瑁 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-13.webp" alt="麻将推尺 红玳瑁 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-红玳瑁/thumb-14.webp" alt="麻将推尺 红玳瑁 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-琥珀">
+      <div class="variant-head">
+        <h4>琥珀</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-01.webp" alt="麻将推尺 琥珀 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-02.webp" alt="麻将推尺 琥珀 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-03.webp" alt="麻将推尺 琥珀 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-04.webp" alt="麻将推尺 琥珀 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-05.webp" alt="麻将推尺 琥珀 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-06.webp" alt="麻将推尺 琥珀 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-07.webp" alt="麻将推尺 琥珀 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-08.webp" alt="麻将推尺 琥珀 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-09.webp" alt="麻将推尺 琥珀 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-10.webp" alt="麻将推尺 琥珀 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-11.webp" alt="麻将推尺 琥珀 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-12.webp" alt="麻将推尺 琥珀 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-13.webp" alt="麻将推尺 琥珀 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-琥珀/thumb-14.webp" alt="麻将推尺 琥珀 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-蓝">
+      <div class="variant-head">
+        <h4>蓝</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-01.webp" alt="麻将推尺 蓝 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-02.webp" alt="麻将推尺 蓝 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-03.webp" alt="麻将推尺 蓝 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-04.webp" alt="麻将推尺 蓝 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-05.webp" alt="麻将推尺 蓝 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-06.webp" alt="麻将推尺 蓝 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-07.webp" alt="麻将推尺 蓝 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-08.webp" alt="麻将推尺 蓝 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-09.webp" alt="麻将推尺 蓝 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-10.webp" alt="麻将推尺 蓝 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-11.webp" alt="麻将推尺 蓝 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-12.webp" alt="麻将推尺 蓝 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-13.webp" alt="麻将推尺 蓝 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-蓝/thumb-14.webp" alt="麻将推尺 蓝 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-绿">
+      <div class="variant-head">
+        <h4>绿</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-01.webp" alt="麻将推尺 绿 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-02.webp" alt="麻将推尺 绿 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-03.webp" alt="麻将推尺 绿 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-04.webp" alt="麻将推尺 绿 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-05.webp" alt="麻将推尺 绿 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-06.webp" alt="麻将推尺 绿 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-07.webp" alt="麻将推尺 绿 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-08.webp" alt="麻将推尺 绿 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-09.webp" alt="麻将推尺 绿 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-10.webp" alt="麻将推尺 绿 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-11.webp" alt="麻将推尺 绿 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-12.webp" alt="麻将推尺 绿 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-13.webp" alt="麻将推尺 绿 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿/thumb-14.webp" alt="麻将推尺 绿 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-绿玳瑁">
+      <div class="variant-head">
+        <h4>绿玳瑁</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-01.webp" alt="麻将推尺 绿玳瑁 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-02.webp" alt="麻将推尺 绿玳瑁 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-03.webp" alt="麻将推尺 绿玳瑁 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-04.webp" alt="麻将推尺 绿玳瑁 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-05.webp" alt="麻将推尺 绿玳瑁 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-06.webp" alt="麻将推尺 绿玳瑁 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-07.webp" alt="麻将推尺 绿玳瑁 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-08.webp" alt="麻将推尺 绿玳瑁 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-09.webp" alt="麻将推尺 绿玳瑁 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-10.webp" alt="麻将推尺 绿玳瑁 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-11.webp" alt="麻将推尺 绿玳瑁 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-12.webp" alt="麻将推尺 绿玳瑁 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-13.webp" alt="麻将推尺 绿玳瑁 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-绿玳瑁/thumb-14.webp" alt="麻将推尺 绿玳瑁 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-米">
+      <div class="variant-head">
+        <h4>米</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-01.webp" alt="麻将推尺 米 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-02.webp" alt="麻将推尺 米 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-03.webp" alt="麻将推尺 米 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-04.webp" alt="麻将推尺 米 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-05.webp" alt="麻将推尺 米 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-06.webp" alt="麻将推尺 米 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-07.webp" alt="麻将推尺 米 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-08.webp" alt="麻将推尺 米 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-09.webp" alt="麻将推尺 米 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-10.webp" alt="麻将推尺 米 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-11.webp" alt="麻将推尺 米 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-12.webp" alt="麻将推尺 米 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-13.webp" alt="麻将推尺 米 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-米/thumb-14.webp" alt="麻将推尺 米 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-麻将推尺-透明">
+      <div class="variant-head">
+        <h4>透明</h4>
+        <p>14 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-01.webp" alt="麻将推尺 透明 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-02.webp" alt="麻将推尺 透明 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-03.webp" alt="麻将推尺 透明 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-04.webp" alt="麻将推尺 透明 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-05.webp" alt="麻将推尺 透明 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-06.webp" alt="麻将推尺 透明 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-07.webp" alt="麻将推尺 透明 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-08.webp" alt="麻将推尺 透明 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-09.webp" alt="麻将推尺 透明 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-10.webp" alt="麻将推尺 透明 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-11.webp" alt="麻将推尺 透明 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-12.webp" alt="麻将推尺 透明 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-13.webp" alt="麻将推尺 透明 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/麻将推尺/麻将推尺-透明/thumb-14.webp" alt="麻将推尺 透明 图 14" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-桌球摆球器">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">游戏与聚会小物</p>
+          <h3 class="section-title">桌球摆球器</h3>
+          <p class="body-copy">围绕桌球场景整理的器物型系列。</p>
+          <p class="series-count">3 个变体 · 45 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/cover-01.webp" alt="桌球摆球器 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-桌球摆球器-白">
+      <div class="variant-head">
+        <h4>白</h4>
+        <p>15 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-01.webp" alt="桌球摆球器 白 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-02.webp" alt="桌球摆球器 白 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-03.webp" alt="桌球摆球器 白 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-04.webp" alt="桌球摆球器 白 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-05.webp" alt="桌球摆球器 白 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-06.webp" alt="桌球摆球器 白 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-07.webp" alt="桌球摆球器 白 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-08.webp" alt="桌球摆球器 白 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-09.webp" alt="桌球摆球器 白 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-10.webp" alt="桌球摆球器 白 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-11.webp" alt="桌球摆球器 白 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-12.webp" alt="桌球摆球器 白 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-13.webp" alt="桌球摆球器 白 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-14.webp" alt="桌球摆球器 白 图 14" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-白/thumb-15.webp" alt="桌球摆球器 白 图 15" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-桌球摆球器-橙">
+      <div class="variant-head">
+        <h4>橙</h4>
+        <p>15 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-01.webp" alt="桌球摆球器 橙 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-02.webp" alt="桌球摆球器 橙 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-03.webp" alt="桌球摆球器 橙 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-04.webp" alt="桌球摆球器 橙 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-05.webp" alt="桌球摆球器 橙 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-06.webp" alt="桌球摆球器 橙 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-07.webp" alt="桌球摆球器 橙 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-08.webp" alt="桌球摆球器 橙 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-09.webp" alt="桌球摆球器 橙 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-10.webp" alt="桌球摆球器 橙 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-11.webp" alt="桌球摆球器 橙 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-12.webp" alt="桌球摆球器 橙 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-13.webp" alt="桌球摆球器 橙 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-14.webp" alt="桌球摆球器 橙 图 14" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-橙/thumb-15.webp" alt="桌球摆球器 橙 图 15" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-桌球摆球器-黑">
+      <div class="variant-head">
+        <h4>黑</h4>
+        <p>15 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-01.webp" alt="桌球摆球器 黑 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-02.webp" alt="桌球摆球器 黑 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-03.webp" alt="桌球摆球器 黑 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-04.webp" alt="桌球摆球器 黑 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-05.webp" alt="桌球摆球器 黑 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-06.webp" alt="桌球摆球器 黑 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-07.webp" alt="桌球摆球器 黑 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-08.webp" alt="桌球摆球器 黑 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-09.webp" alt="桌球摆球器 黑 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-10.webp" alt="桌球摆球器 黑 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-11.webp" alt="桌球摆球器 黑 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-12.webp" alt="桌球摆球器 黑 图 12" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-13.webp" alt="桌球摆球器 黑 图 13" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-14.webp" alt="桌球摆球器 黑 图 14" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/桌球摆球器/桌球摆球器-黑/thumb-15.webp" alt="桌球摆球器 黑 图 15" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+        </div>
+      </section>
+    
+
+      <section class="series-group-block" id="group-织物与配件">
+        <div class="gallery-section-head">
+          <div>
+            <p class="eyebrow">系列分组</p>
+          </div>
+          <div>
+            <h2 class="section-title">织物与配件</h2>
+            <p class="body-copy">更轻松、亲近、适合日常搭配和礼物判断的系列。</p>
+          </div>
+        </div>
+        <div class="series-group-list">
+          
+    <article class="series-detail" id="series-青蛙手机包">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">织物与配件</p>
+          <h3 class="section-title">青蛙手机包</h3>
+          <p class="body-copy">更偏日常携带与轻松表达的小型配件系列。</p>
+          <p class="series-count">3 个变体 · 27 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/cover-01.webp" alt="青蛙手机包 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-青蛙手机包-粉">
+      <div class="variant-head">
+        <h4>粉</h4>
+        <p>9 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-01.webp" alt="青蛙手机包 粉 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-02.webp" alt="青蛙手机包 粉 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-03.webp" alt="青蛙手机包 粉 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-04.webp" alt="青蛙手机包 粉 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-05.webp" alt="青蛙手机包 粉 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-06.webp" alt="青蛙手机包 粉 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-07.webp" alt="青蛙手机包 粉 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-08.webp" alt="青蛙手机包 粉 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-粉/thumb-09.webp" alt="青蛙手机包 粉 图 9" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-青蛙手机包-蓝">
+      <div class="variant-head">
+        <h4>蓝</h4>
+        <p>9 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-01.webp" alt="青蛙手机包 蓝 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-02.webp" alt="青蛙手机包 蓝 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-03.webp" alt="青蛙手机包 蓝 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-04.webp" alt="青蛙手机包 蓝 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-05.webp" alt="青蛙手机包 蓝 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-06.webp" alt="青蛙手机包 蓝 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-07.webp" alt="青蛙手机包 蓝 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-08.webp" alt="青蛙手机包 蓝 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-蓝/thumb-09.webp" alt="青蛙手机包 蓝 图 9" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-青蛙手机包-棕">
+      <div class="variant-head">
+        <h4>棕</h4>
+        <p>9 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-01.webp" alt="青蛙手机包 棕 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-02.webp" alt="青蛙手机包 棕 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-03.webp" alt="青蛙手机包 棕 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-04.webp" alt="青蛙手机包 棕 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-05.webp" alt="青蛙手机包 棕 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-06.webp" alt="青蛙手机包 棕 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-07.webp" alt="青蛙手机包 棕 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-08.webp" alt="青蛙手机包 棕 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/青蛙手机包/青蛙手机包-棕/thumb-09.webp" alt="青蛙手机包 棕 图 9" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-手工杯垫">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">织物与配件</p>
+          <h3 class="section-title">手工杯垫</h3>
+          <p class="body-copy">适合桌面细节和轻礼物场景的织物小物。</p>
+          <p class="series-count">2 个变体 · 24 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/cover-01.webp" alt="手工杯垫 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-手工杯垫-粉">
+      <div class="variant-head">
+        <h4>粉</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-01.webp" alt="手工杯垫 粉 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-02.webp" alt="手工杯垫 粉 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-03.webp" alt="手工杯垫 粉 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-04.webp" alt="手工杯垫 粉 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-05.webp" alt="手工杯垫 粉 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-06.webp" alt="手工杯垫 粉 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-07.webp" alt="手工杯垫 粉 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-08.webp" alt="手工杯垫 粉 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-09.webp" alt="手工杯垫 粉 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-10.webp" alt="手工杯垫 粉 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-11.webp" alt="手工杯垫 粉 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-粉/thumb-12.webp" alt="手工杯垫 粉 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-手工杯垫-紫">
+      <div class="variant-head">
+        <h4>紫</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-01.webp" alt="手工杯垫 紫 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-02.webp" alt="手工杯垫 紫 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-03.webp" alt="手工杯垫 紫 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-04.webp" alt="手工杯垫 紫 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-05.webp" alt="手工杯垫 紫 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-06.webp" alt="手工杯垫 紫 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-07.webp" alt="手工杯垫 紫 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-08.webp" alt="手工杯垫 紫 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-09.webp" alt="手工杯垫 紫 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-10.webp" alt="手工杯垫 紫 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-11.webp" alt="手工杯垫 紫 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/手工杯垫/手工杯垫-紫/thumb-12.webp" alt="手工杯垫 紫 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-鼠标垫xl">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">织物与配件</p>
+          <h3 class="section-title">鼠标垫XL</h3>
+          <p class="body-copy">偏向桌面铺陈与使用面的系列。</p>
+          <p class="series-count">1 个变体 · 12 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/cover-01.webp" alt="鼠标垫XL 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-鼠标垫xl-标准">
+      <div class="variant-head">
+        <h4>标准</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-01.webp" alt="鼠标垫XL 标准 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-02.webp" alt="鼠标垫XL 标准 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-03.webp" alt="鼠标垫XL 标准 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-04.webp" alt="鼠标垫XL 标准 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-05.webp" alt="鼠标垫XL 标准 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-06.webp" alt="鼠标垫XL 标准 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-07.webp" alt="鼠标垫XL 标准 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-08.webp" alt="鼠标垫XL 标准 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-09.webp" alt="鼠标垫XL 标准 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-10.webp" alt="鼠标垫XL 标准 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-11.webp" alt="鼠标垫XL 标准 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xl/鼠标垫xl-标准/thumb-12.webp" alt="鼠标垫XL 标准 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-鼠标垫xxl">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">织物与配件</p>
+          <h3 class="section-title">鼠标垫XXL</h3>
+          <p class="body-copy">延展桌面尺度与整体铺陈关系的系列。</p>
+          <p class="series-count">1 个变体 · 12 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/cover-01.webp" alt="鼠标垫XXL 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-鼠标垫xxl-标准">
+      <div class="variant-head">
+        <h4>标准</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-01.webp" alt="鼠标垫XXL 标准 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-02.webp" alt="鼠标垫XXL 标准 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-03.webp" alt="鼠标垫XXL 标准 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-04.webp" alt="鼠标垫XXL 标准 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-05.webp" alt="鼠标垫XXL 标准 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-06.webp" alt="鼠标垫XXL 标准 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-07.webp" alt="鼠标垫XXL 标准 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-08.webp" alt="鼠标垫XXL 标准 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-09.webp" alt="鼠标垫XXL 标准 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-10.webp" alt="鼠标垫XXL 标准 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-11.webp" alt="鼠标垫XXL 标准 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鼠标垫xxl/鼠标垫xxl-标准/thumb-12.webp" alt="鼠标垫XXL 标准 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+
+    <article class="series-detail" id="series-鹦鹉披肩">
+      <div class="series-detail-head">
+        <div class="series-detail-copy">
+          <p class="eyebrow">织物与配件</p>
+          <h3 class="section-title">鹦鹉披肩</h3>
+          <p class="body-copy">更接近日常穿戴与礼物线索的织物系列。</p>
+          <p class="series-count">3 个变体 · 36 张图</p>
+        </div>
+        <div class="series-detail-cover">
+          <img class="series-cover-image" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/cover-01.webp" alt="鹦鹉披肩 系列主图" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="series-variants">
+        
+    <section class="variant-block" id="variant-鹦鹉披肩-花边">
+      <div class="variant-head">
+        <h4>花边</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-01.webp" alt="鹦鹉披肩 花边 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-02.webp" alt="鹦鹉披肩 花边 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-03.webp" alt="鹦鹉披肩 花边 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-04.webp" alt="鹦鹉披肩 花边 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-05.webp" alt="鹦鹉披肩 花边 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-06.webp" alt="鹦鹉披肩 花边 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-07.webp" alt="鹦鹉披肩 花边 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-08.webp" alt="鹦鹉披肩 花边 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-09.webp" alt="鹦鹉披肩 花边 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-10.webp" alt="鹦鹉披肩 花边 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-11.webp" alt="鹦鹉披肩 花边 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-花边/thumb-12.webp" alt="鹦鹉披肩 花边 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-鹦鹉披肩-无杆">
+      <div class="variant-head">
+        <h4>无杆</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-01.webp" alt="鹦鹉披肩 无杆 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-02.webp" alt="鹦鹉披肩 无杆 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-03.webp" alt="鹦鹉披肩 无杆 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-04.webp" alt="鹦鹉披肩 无杆 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-05.webp" alt="鹦鹉披肩 无杆 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-06.webp" alt="鹦鹉披肩 无杆 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-07.webp" alt="鹦鹉披肩 无杆 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-08.webp" alt="鹦鹉披肩 无杆 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-09.webp" alt="鹦鹉披肩 无杆 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-10.webp" alt="鹦鹉披肩 无杆 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-11.webp" alt="鹦鹉披肩 无杆 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-无杆/thumb-12.webp" alt="鹦鹉披肩 无杆 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+
+    <section class="variant-block" id="variant-鹦鹉披肩-有杆">
+      <div class="variant-head">
+        <h4>有杆</h4>
+        <p>12 张图</p>
+      </div>
+      <div class="variant-gallery">
+        <img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-01.webp" alt="鹦鹉披肩 有杆 图 1" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-02.webp" alt="鹦鹉披肩 有杆 图 2" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-03.webp" alt="鹦鹉披肩 有杆 图 3" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-04.webp" alt="鹦鹉披肩 有杆 图 4" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-05.webp" alt="鹦鹉披肩 有杆 图 5" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-06.webp" alt="鹦鹉披肩 有杆 图 6" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-07.webp" alt="鹦鹉披肩 有杆 图 7" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-08.webp" alt="鹦鹉披肩 有杆 图 8" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-09.webp" alt="鹦鹉披肩 有杆 图 9" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-10.webp" alt="鹦鹉披肩 有杆 图 10" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-11.webp" alt="鹦鹉披肩 有杆 图 11" loading="lazy" decoding="async">
+<img class="variant-thumb" src="../assets/shangpin-web/鹦鹉披肩/鹦鹉披肩-有杆/thumb-12.webp" alt="鹦鹉披肩 有杆 图 12" loading="lazy" decoding="async">
+      </div>
+    </section>
+  
+      </div>
+    </article>
+  
+        </div>
+      </section>
+    
+    </section>
+  </main>
+
+  <footer class="gallery-footer" id="site-footer" data-od-id="site-footer">
+    <div class="page-shell gallery-footer-inner">
+      <div>
+        <p class="eyebrow">EYLOFORA</p>
+        <p class="body-copy footer-copy" style="margin-top:8px">真实系列图片与目录式整理共同构成这份公开展示页面，用于品牌呈现与持续发布。</p>
+      </div>
+      <div class="footer-meta" aria-label="站点说明">
+<p>当前首页用于公开展示已整理的系列目录、分组判断与全部变体，不把页面写成货架式陈列。</p>
+<p>系列封面、缩略图与浏览顺序已切换为网页展示尺寸，原始素材仍保留在源侧目录。</p>
+<p>当前呈现中的图像、系列名与分组说明按 EYLOFORA 品牌整理逻辑持续校对，用于正式公开展示。</p>
+      </div>
+      <div class="footer-actions">
+        <div class="button-row">
+          <a class="button-minimal" href="#all-series-section">浏览全系列</a>
+        </div>
+        <a class="text-link" href="#series-index-section">回到系列入口</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    const productData = {
-      "mahjong-clear": {
-        category: "桌面娱乐 / 收纳",
-        title: "20 英寸亚克力麻将牌架",
-        description: "这类产品适合用规则式陈列图、细节局部图和包装说明图来建立正式感。首页里不直接拼成商品卡，而是用单条目录语气呈现：产品名、用途、公开状态、后续进入详情页的入口。",
-        material: "亚克力 / 桌面配件",
-        assets: "watermarked / edited-images",
-        layout: "主图、细节图、用途说明、权属声明",
-        note: "同系列还包括粉色版本。首页只选一个代表条目，避免重复占位。"
-      },
-      "cat-statue": {
-        category: "家居摆件 / 树脂",
-        title: "黑色猫咪树脂摆件",
-        description: "摆件类商品更适合通过留白、单体轮廓和材质说明来呈现。首页可以用一张正视图和一行短说明建立形象，避免做成交错促销卡。",
-        material: "树脂 / 装饰雕塑",
-        assets: "edited-images / packshot-first",
-        layout: "主图、侧视细节、场景图、尺寸信息",
-        note: "这类 SKU 在产品页中适合增加“放置场景”与“材质质感”两类辅助图。"
-      },
-      "book-vase": {
-        category: "花器 / 家居陈设",
-        title: "陶瓷书本花器",
-        description: "花器类可以承担首页的温和色彩节点，但仍应保持低饱和。用产品本身的浅色和花材的轻微层次来替代页面背景上的装饰。",
-        material: "陶瓷 / 小型花器",
-        assets: "edited-images / lifestyle-supported",
-        layout: "静物主图、花艺使用图、近景细节、权属信息",
-        note: "该条目适合进入品牌介绍页和商品目录页的双重场景。"
-      },
-      "bunny-set": {
-        category: "组合摆件 / 树脂",
-        title: "三件兔子雕塑组合",
-        description: "组合摆件强调比例与组合关系，首页呈现时应保持横向节奏，不建议拆成三张独立小卡。通过编号和组合名能更接近画册目录。",
-        material: "树脂 / 多件组",
-        assets: "edited-images / group-composition",
-        layout: "组合总览、单体细节、尺寸表、发布备注",
-        note: "产品页可以加一个“组合包含”模块，避免用户误解数量。"
-      },
-      "shell-box": {
-        category: "日用陈设 / 陶瓷",
-        title: "贝壳造型纸巾盒",
-        description: "兼具日用与装饰属性的商品应在首页里用更冷静的用途说明处理，让页面保持正式，而不是把它写成生活方式口号。",
-        material: "陶瓷 / 纸巾盒",
-        assets: "edited-images / usage-first",
-        layout: "主图、开合细节、空间应用图、维护说明",
-        note: "这类商品适合在详情页加入“适用空间”字段。"
-      },
-      "fairy-stakes": {
-        category: "花园配件 / 装饰插牌",
-        title: "花园精灵装饰插牌",
-        description: "户外或园艺小物在首页中不需要放大渲染氛围，而是作为品牌商品跨度的补充出现：说明它属于哪一类用途、采用什么公开图方式即可。",
-        material: "装饰插牌 / 园艺配件",
-        assets: "edited-images / outdoor-context",
-        layout: "集合图、插牌细节、户外使用图、版权备注",
-        note: "首页只点到为止，避免把品牌页拉成多类别电商分类页。"
-      },
-      "reindeer": {
-        category: "节庆摆件 / 金属质感",
-        title: "黑色驯鹿摆件二件组",
-        description: "节庆向条目适合用更简练的目录表述，避免把首页带入季节性活动页语境。产品存在即可，但语气要稳定。",
-        material: "合金 / 摆件组合",
-        assets: "edited-images / pair-display",
-        layout: "组合图、单体轮廓、尺寸对照、公开时间",
-        note: "详情页可保留“季节陈列建议”，但首页不放强节庆标签。"
-      },
-      "coasters": {
-        category: "手作软装 / 钩针",
-        title: "钩针花朵杯垫三件套",
-        description: "手作类产品可以为品牌加入柔和层次，但页面表达仍然要克制。首页只强调材质与工艺，不扩大为情绪化叙事。",
-        material: "棉线 / 手作杯垫",
-        assets: "edited-images / craft-detail",
-        layout: "平铺主图、近景针法、套组说明、权属信息",
-        note: "这类产品在详情页中适合加入“纹理特写”缩略图。"
-      }
-    };
+    (() => {
+      const mobileNav = document.querySelector('[data-od-id="mobile-nav"]');
+      if (!mobileNav) return;
 
-    const menuButton = document.getElementById("menu-button");
-    const siteNav = document.getElementById("site-nav");
-    const optionButtons = Array.from(document.querySelectorAll(".product-option"));
+      const summary = mobileNav.querySelector('summary');
+      const links = mobileNav.querySelectorAll('a');
 
-    menuButton.addEventListener("click", () => {
-      const next = menuButton.getAttribute("aria-expanded") !== "true";
-      menuButton.setAttribute("aria-expanded", String(next));
-      siteNav.classList.toggle("is-open", next);
-    });
-
-    function renderSpotlight(productId) {
-      const data = productData[productId];
-      if (!data) return;
-
-      document.getElementById("spotlight-category").textContent = data.category;
-      document.getElementById("spotlight-title").textContent = data.title;
-      document.getElementById("spotlight-description").textContent = data.description;
-      document.getElementById("spotlight-material").textContent = data.material;
-      document.getElementById("spotlight-assets").textContent = data.assets;
-      document.getElementById("spotlight-layout").textContent = data.layout;
-      document.getElementById("spotlight-note").textContent = data.note;
-
-      optionButtons.forEach((button) => {
-        button.setAttribute("aria-pressed", String(button.dataset.product === productId));
+      links.forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileNav.open = false;
+        });
       });
-    }
 
-    optionButtons.forEach((button) => {
-      button.addEventListener("click", () => renderSpotlight(button.dataset.product));
-    });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && mobileNav.open) {
+          mobileNav.open = false;
+          if (summary) summary.focus({ preventScroll: true });
+        }
+      });
 
-    renderSpotlight("mahjong-clear");
+      document.addEventListener('pointerdown', (event) => {
+        if (mobileNav.open && !mobileNav.contains(event.target)) {
+          mobileNav.open = false;
+        }
+      });
+    })();
   </script>
 </body>
 </html>
