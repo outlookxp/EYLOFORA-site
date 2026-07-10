@@ -32,7 +32,7 @@ jobs:
           )
 
           curl "${curl_args[@]}" https://eylofora.com/ --output homepage.html
-          grep --fixed-strings '<title>EYLOFORA | Decorative Objects, Tabletop Pieces &amp; Accessories</title>' homepage.html
+          grep --fixed-strings '<title>EYLOFORA | Decorative Objects, Tabletop Pieces & Accessories</title>' homepage.html
           grep --fixed-strings 'Objects with character for everyday spaces.' homepage.html
           grep --fixed-strings 'eylofora887@gmail.com' homepage.html
 
