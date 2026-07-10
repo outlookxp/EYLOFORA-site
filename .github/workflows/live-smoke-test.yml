@@ -1,0 +1,55 @@
+name: Verify Live Site
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy GitHub Pages
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify homepage and SEO files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          curl_args=(
+            --fail
+            --show-error
+            --silent
+            --location
+            --retry 5
+            --retry-delay 5
+            --retry-all-errors
+          )
+
+          curl "${curl_args[@]}" https://eylofora.com/ --output homepage.html
+          grep --fixed-strings '<title>EYLOFORA | Decorative Objects, Tabletop Pieces &amp; Accessories</title>' homepage.html
+          grep --fixed-strings 'Objects with character for everyday spaces.' homepage.html
+          grep --fixed-strings 'eylofora887@gmail.com' homepage.html
+
+          curl "${curl_args[@]}" https://eylofora.com/robots.txt --output robots.txt
+          grep --fixed-strings 'Sitemap: https://eylofora.com/sitemap.xml' robots.txt
+
+          curl "${curl_args[@]}" https://eylofora.com/sitemap.xml --output sitemap.xml
+          grep --fixed-strings '<loc>https://eylofora.com/</loc>' sitemap.xml
+
+      - name: Verify product image and redirects
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          image_url='https://eylofora.com/assets/shangpin-web/%E4%B9%A6%E6%9C%AC%E8%8A%B1%E7%93%B6/%E4%B9%A6%E6%9C%AC%E8%8A%B1%E7%93%B6-%E6%A0%87%E5%87%86/cover-01.webp'
+          image_status=$(curl --fail --show-error --silent --location --retry 5 --retry-delay 5 --retry-all-errors --output /dev/null --write-out '%{http_code}' "$image_url")
+          test "$image_status" = '200'
+
+          final_url=$(curl --fail --show-error --silent --location --retry 5 --retry-delay 5 --retry-all-errors --output /dev/null --write-out '%{url_effective}' http://www.eylofora.com/)
+          test "$final_url" = 'https://eylofora.com/'
